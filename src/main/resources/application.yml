@@ -1,0 +1,11 @@
+server:
+  port: 8932
+
+spring:
+  datasource:
+    username: root
+    password: 81234567
+    url: jdbc:mysql://116.62.159.13:3306/LLDHL?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+
+mybatis:
+  mapper-locations: classpath:static/mapper/*
