@@ -58,11 +58,11 @@ public class SecurityCodeProvider implements AuthenticationProvider {
         }
 
         //测试需要，临时关闭
-//        //校验码有效期
-//        if((new Date()).getTime() - details.getSessionCodeTime() > 60000) {
-//            log.info("验证码超时");
-//            throw new BadCredentialsException("验证码超时");
-//        }
+        //校验码有效期
+        if((new Date()).getTime() - details.getSessionCodeTime() > 60000) {
+            log.info("验证码超时");
+            throw new BadCredentialsException("验证码超时");
+        }
 
         //验密
         boolean matches = false;
