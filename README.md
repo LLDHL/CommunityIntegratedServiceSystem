@@ -24,9 +24,9 @@
     
     | 参数名        | 参数说明    |  备注  |
     | --------   | -----   | :----: |
-    | publishUserId        | 发帖人id      |   必填    |
-    | publishUsername        | 发帖人姓名      |   必填    |
-    | publishUserCommunity        | 发帖人小区      |   必填    |
+    | userId        | 发帖人id      |   必填    |
+    | username        | 发帖人姓名      |   必填    |
+    | communityId    | 发帖人小区Id      |   必填    |
     | title        | 标题      |   必填    |
     | content        | 内容      |   必填    |
     | label        | 标签      |   必填    |
@@ -38,9 +38,9 @@
     
     ```json
     {
-    	"publishUserId":"1",
-    	"publishUsername":"lzy",
-    	"publishUserCommunity":"泰湖新城",
+    	"userId":"1",
+    	"username":"lzy",
+    	"communityId":"100101",
     	"title":"123",
     	"content":"123",
     	"label":"标签1,标签2",
@@ -68,7 +68,7 @@
     | title| 发帖人id      |   必填    |
     | content| 发帖人姓名      |   必填    |
     | label| 发帖人小区      |   必填    |
-    | pictureAddress| 标题      |   必填    |
+    | picture| 图片      |   必填    |
   
 	示例演示
 	```json
@@ -76,7 +76,7 @@
     	"title":"123",
 		"content":"123",
 		"label":"标签1,标签2",
-		"pictureAddress":"null"
+		"picture":"null"
     }
     ```
 3. 删除帖子
@@ -122,9 +122,9 @@
     "list": [
         {
             "id": 2,
-            "publishUserId": 1,
-            "publishUsername": "lzy",
-            "publishUserCommunity": "泰湖新城",
+            "userId": 1,
+            "username": "lzy",
+            "communityId": "10010011",
             "title": "123",
             "content": "123",
             "label": "标签1,标签2",
@@ -136,9 +136,9 @@
         },
         {
             "id": 3,
-            "publishUserId": 1,
-            "publishUsername": "lzy",
-            "publishUserCommunity": "泰湖新城",
+            "userId": 1,
+            "username": "lzy",
+            "communityId": "10010011",
             "title": "震惊",
             "content": "内容",
             "label": "标签",
@@ -180,13 +180,13 @@
 - 请求方式：Get
 - 接口
 
-	**selectPersonTie/{publishUserId}/{page}/{size}**
+	**selectPersonTie/{userId}/{page}/{size}**
 	
 	路径参数
 	
 	| 参数名        | 参数说明    |  备注  |
     | --------   | -----   | :----: |
-    | publishUserId | 发帖人id    |  必填  |
+    | userId | 发帖人id    |  必填  |
     | page        | 当前页码    |  必填  |
     | size        | 每页显示的条数    |  必填  |
 
@@ -197,9 +197,9 @@
     "list": [
         {
             "id": 11,
-            "publishUserId": 2,
-            "publishUsername": "lzy",
-            "publishUserCommunity": "丽湖居",
+            "userId": 2,
+            "username": "lzy",
+            "communityId": "10010",
             "title": "123",
             "content": "123",
             "label": "标签1,标签2",
@@ -213,7 +213,7 @@
             "id": 12,
             "publishUserId": 2,
             "publishUsername": "lzy",
-            "publishUserCommunity": "丽湖居",
+            "publishUserCommunity": "10010",
             "title": "123",
             "content": "123",
             "label": "标签1,标签2",
@@ -259,7 +259,9 @@
 
 	| 参数名        | 参数说明    |  备注  |
     | --------   | -----   | :----: |
-    | id | 帖子id    |  必填  |
+    | communityId | 小区Id    |  必填  |
+    | page        | 当前页码    |  必填  |
+    | size        | 每页显示的条数    |  必填  |
     
  - 返回结果
 ```json
@@ -268,9 +270,9 @@
     "message": "查询成功",
     "data": {
         "id": 5,
-        "publishUserId": 1,
-        "publishUsername": "lzy",
-        "publishUserCommunity": "泰湖新城",
+        "userId": 1,
+        "username": "lzy",
+        "communityId": "10010",
         "title": "123",
         "content": "123",
         "label": "标签1,标签2",
@@ -279,6 +281,82 @@
         "browse": 27,
         "tieTypes": 1,
         "likes": 1
+    }
+}
+```
+
+- 查询小区的所有帖子
+- 请求方式：Get
+- 接口
+
+	**selectCommunityTie/{communityId}/{page}/{size}**
+	
+
+- 路径参数
+
+	| 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | id | 帖子id    |  必填  |
+    
+ - 返回结果
+```json
+{
+    "code": 200,
+    "message": "获取成功",
+    "data": {
+        "total": 6,
+        "list": [
+            {
+                "id": 1,
+                "userId": 1,
+                "username": "李忠毅",
+                "communityId": 101,
+                "title": "123",
+                "content": "123",
+                "label": "标签1,标签2",
+                "publishTime": "2020-05-27 19:40:19",
+                "picture": "null",
+                "browse": 0,
+                "tieTypes": 1,
+                "likes": 0
+            },
+            {
+                "id": 2,
+                "userId": 1,
+                "username": "李忠毅",
+                "communityId": 101,
+                "title": "大家好",
+                "content": "我是101小区xxx栋的李忠毅",
+                "label": "标签1,标签2",
+                "publishTime": "2020-05-27 19:37:30",
+                "picture": "D://a.jpg",
+                "browse": 0,
+                "tieTypes": 1,
+                "likes": 0
+            }
+        ],
+        "pageNum": 1,
+        "pageSize": 2,
+        "size": 2,
+        "startRow": 1,
+        "endRow": 2,
+        "pages": 3,
+        "prePage": 0,
+        "nextPage": 2,
+        "isFirstPage": true,
+        "isLastPage": false,
+        "hasPreviousPage": false,
+        "hasNextPage": true,
+        "navigatePages": 8,
+        "navigatepageNums": [
+            1,
+            2,
+            3
+        ],
+        "navigateFirstPage": 1,
+        "navigateLastPage": 3,
+        "lastPage": 3,
+        "firstPage": 1
     }
 }
 ```

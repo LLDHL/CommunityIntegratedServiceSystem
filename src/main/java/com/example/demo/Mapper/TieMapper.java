@@ -11,8 +11,8 @@ import java.util.List;
 public interface TieMapper {
 
     /*发帖*/
-    @Insert("insert into tie (publishUserId,publishUsername,publishUserCommunity,title,content,label,publishTime,pictureAddress,tieTypes) " +
-            "values (#{publishUserId},#{publishUsername},#{publishUserCommunity},#{title},#{content},#{label},#{publishTime},#{pictureAddress},#{tieTypes})")
+    @Insert("insert into tie (userId,username,communityId,title,content,label,publishTime,picture,tieTypes) " +
+            "values (#{userId},#{username},#{communityId},#{title},#{content},#{label},#{publishTime},#{picture},#{tieTypes})")
     void publish(Tie tie);
 
     /*删帖*/
@@ -20,7 +20,7 @@ public interface TieMapper {
     void deleteTie(Integer id);
 
     /*修改贴*/
-    @Update("update tie set title = #{title},content = #{content},label = #{label},pictureAddress = #{pictureAddress} where id = #{id}")
+    @Update("update tie set title = #{title},content = #{content},label = #{label},picture = #{picture} where id = #{id}")
     void updateTie(Tie ite);
 
     /*查询所有帖子*/
@@ -28,8 +28,8 @@ public interface TieMapper {
     List<Tie> selectAllTie();
 
     /*查询个人的所有帖子*/
-    @Select("select * from tie where publishUserId = #{publishUserId}")
-    List<Tie> selectPersonTie(Integer publishUserId);
+    @Select("select * from tie where userId = #{userId}")
+    List<Tie> selectPersonTie(Integer userId);
 
     /* 查询某一个帖子 */
     @Select("select * from tie where id = #{id}")
@@ -39,4 +39,7 @@ public interface TieMapper {
     @Update("update tie set browse = #{browse} where id = #{id}")
     void rememberBrowse(Integer browse,Integer id);
 
+    /* 查询某一个小区的帖子 */
+    @Select("select * from tie where communityId = #{communityId}")
+    List<Tie> selectCommunityTie(Integer communityId);
 }

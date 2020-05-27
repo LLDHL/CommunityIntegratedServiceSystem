@@ -1,11 +1,16 @@
 package com.example.demo.controller;
 
+import com.example.demo.Mapper.TieMapper;
 import com.example.demo.dto.ResultDTO;
 import com.example.demo.model.Tie;
 import com.example.demo.service.TieService;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/tie")
@@ -13,6 +18,9 @@ public class TieController {
 
     @Autowired
     private TieService tieService;
+
+    @Autowired
+    private TieMapper tieMapper;
 
     /* 发帖 */
     @PostMapping("/publish")
@@ -41,25 +49,32 @@ public class TieController {
     @GetMapping("/selectAllTie/{page}/{size}")
     public ResultDTO deSelectAllTie(@PathVariable("page") Integer page,
                                     @PathVariable("size") Integer size){
-        PageInfo pageInfo = tieService.selectAllTie(page, size);
-        ResultDTO resultDTO = new ResultDTO();
-        return resultDTO.okOf("获取成功",pageInfo);
+        ResultDTO resultDTO = tieService.selectAllTie(page, size);
+        return resultDTO;
     }
 
     /*  查询个人所有帖子 */
-    @GetMapping("selectPersonTie/{publishUserId}/{page}/{size}")
-    public ResultDTO doSelectPersonTie(@PathVariable("publishUserId") Integer publishUserId,
+    @GetMapping("selectPersonTie/{userId}/{page}/{size}")
+    public ResultDTO doSelectPersonTie(@PathVariable("userId") Integer userId,
                                       @PathVariable("page") Integer page,
                                       @PathVariable("size") Integer size){
-        PageInfo pageInfo = tieService.selectPersonTie(publishUserId, page, size);
-        ResultDTO resultDTO = new ResultDTO();
-        return resultDTO.okOf("获取成功",pageInfo);
+        ResultDTO resultDTO = tieService.selectPersonTie(userId, page, size);
+        return resultDTO;
     }
 
     /* 查询某一个帖子 */
     @GetMapping("selectOneTie/{id}")
     public ResultDTO doSelectOneTie(@PathVariable("id") Integer id){
         ResultDTO resultDTO = tieService.selectOneTie(id);
+        return resultDTO;
+    }
+
+    /*  查询小区所有帖子 */
+    @GetMapping("selectCommunityTie/{communityId}/{page}/{size}")
+    public ResultDTO doSelectCommunityTie(@PathVariable("communityId") Integer communityId,
+                                       @PathVariable("page") Integer page,
+                                       @PathVariable("size") Integer size){
+        ResultDTO resultDTO = tieService.selectCommunityTie(communityId, page, size);
         return resultDTO;
     }
 

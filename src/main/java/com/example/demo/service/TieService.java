@@ -6,6 +6,7 @@ import com.example.demo.model.Tie;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -44,18 +45,21 @@ public class TieService {
     }
 
     /* 查询全部帖子操作 */
-    public PageInfo selectAllTie(Integer page, Integer size){
+    public ResultDTO selectAllTie(Integer page, Integer size){
         PageHelper.offsetPage(page-1,size);
         List<Tie> ties = tieMapper.selectAllTie();
         PageInfo pageInfo = new PageInfo(ties);
-        return pageInfo;
+        ResultDTO resultDTO = new ResultDTO();
+        return resultDTO.okOf("查询成功",pageInfo);
     }
 
     /* 查询个人的所有帖子 */
-    public PageInfo selectPersonTie(Integer publishUserId, Integer page, Integer size) {
+    public ResultDTO selectPersonTie(Integer userId, Integer page, Integer size) {
         PageHelper.offsetPage(page-1,size);
-        List<Tie> ties = tieMapper.selectPersonTie(publishUserId);
-        return new PageInfo(ties);
+        List<Tie> ties = tieMapper.selectPersonTie(userId);
+        PageInfo pageInfo = new PageInfo(ties);
+        ResultDTO resultDTO = new ResultDTO();
+        return resultDTO.okOf("查询成功",pageInfo);
     }
 
     /* 查询一个帖子 */
@@ -65,5 +69,15 @@ public class TieService {
         tieMapper.rememberBrowse(sum,id);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("查询成功",tie);
+    }
+
+    /*查询小区的帖子*/
+    public ResultDTO selectCommunityTie(Integer communityId, Integer page, Integer size) {
+        PageHelper.offsetPage(page-1,size);
+        List<Tie> ties = tieMapper.selectCommunityTie(communityId);
+        PageInfo pageInfo = new PageInfo(ties);
+        ResultDTO resultDTO = new ResultDTO();
+        return resultDTO.okOf("获取成功",pageInfo);
+
     }
 }
