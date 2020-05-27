@@ -110,6 +110,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login_page","/login","/validateCodeImg",
 
+                        // 测试用，以后删
+                        "/tie/**",
+
                         //下为swagger的页面
                         "/v2/api-docs", "/configuration/ui", "/swagger-resources",
                         "/configuration/security", "/swagger-ui.html", "/webjars/**",

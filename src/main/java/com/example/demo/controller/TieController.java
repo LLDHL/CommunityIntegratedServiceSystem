@@ -7,10 +7,6 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 @RestController
 @RequestMapping("/tie")
 public class TieController {
@@ -43,19 +39,21 @@ public class TieController {
 
     /* 查询所有帖子 */
     @GetMapping("/selectAllTie/{page}/{size}")
-    public PageInfo deSelectAllTie(@PathVariable("page") Integer page,
-                                   @PathVariable("size") Integer size){
+    public ResultDTO deSelectAllTie(@PathVariable("page") Integer page,
+                                    @PathVariable("size") Integer size){
         PageInfo pageInfo = tieService.selectAllTie(page, size);
-        return pageInfo;
+        ResultDTO resultDTO = new ResultDTO();
+        return resultDTO.okOf("获取成功",pageInfo);
     }
 
     /*  查询个人所有帖子 */
     @GetMapping("selectPersonTie/{publishUserId}/{page}/{size}")
-    public PageInfo doSelectPersonTie(@PathVariable("publishUserId") Integer publishUserId,
+    public ResultDTO doSelectPersonTie(@PathVariable("publishUserId") Integer publishUserId,
                                       @PathVariable("page") Integer page,
                                       @PathVariable("size") Integer size){
         PageInfo pageInfo = tieService.selectPersonTie(publishUserId, page, size);
-        return pageInfo;
+        ResultDTO resultDTO = new ResultDTO();
+        return resultDTO.okOf("获取成功",pageInfo);
     }
 
     /* 查询某一个帖子 */
