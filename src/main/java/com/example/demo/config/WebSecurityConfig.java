@@ -109,7 +109,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()//关闭对跨域请求的限制
                 .authorizeRequests()
                 .antMatchers("/login_page","/login","/validateCodeImg",
-                        "/swagger-ui.html","/*.css","/webjars/**","/tie/**").permitAll()//所有人都能访问登录页面
+
+                        //下为swagger的页面
+                        "/v2/api-docs", "/configuration/ui", "/swagger-resources",
+                        "/configuration/security", "/swagger-ui.html", "/webjars/**",
+                        "/swagger-resources/configuration/ui","/swagge‌​r-ui.html").permitAll()//所有人都能访问登录页面
                 .anyRequest().authenticated()//每个请求都必须被认证
                 .and()
                     .formLogin().loginPage("/login_page")
@@ -119,7 +123,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationDetailsSource(authenticationDetailsSource)//认证类扩展，增添验证码功能
                 .and()
                     .logout().logoutSuccessHandler(new ApiLogoutSuccessHandler())//登出监听器
-                    .logoutUrl("logout");//登出接口
+                    .logoutUrl("/logout");//登出接口
 
     }
 

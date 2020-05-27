@@ -1,19 +1,19 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.ResultDTO;
-import com.example.demo.exception.CustomErrorCode;
+import com.example.demo.model.User;
 import com.example.demo.untils.RandomValidateCode;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
 
 @Controller
-public class LoginController {
+public class UserController {
 
     @RequestMapping(value = "/validateCodeImg", method = RequestMethod.GET)
     public ResultDTO<String> downloadWCImage(HttpServletResponse response, HttpServletRequest request) {
@@ -31,5 +31,14 @@ public class LoginController {
 //   https://blog.csdn.net/u010648555/article/details/52261050em.out.println("success");
         return ResultDTO.okOf("验证码获取成功");
     }
+
+    @PostMapping("/register")
+    public ResultDTO<String> userRegister(@RequestBody User user){
+
+
+        return ResultDTO.okOf("注册申请已提交");
+    }
+
+
 
 }
