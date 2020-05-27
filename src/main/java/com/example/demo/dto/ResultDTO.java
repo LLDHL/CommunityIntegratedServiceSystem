@@ -16,40 +16,6 @@ public class ResultDTO<T> {
         return resultDTO;
     }
 
-    /*发帖返回数据*/
-    public static <T>ResultDTO okOfPublish(T data){
-        ResultDTO resultDTO=new ResultDTO();
-        resultDTO.setCode(200);
-        resultDTO.setMessage("发表成功");
-        resultDTO.setData(data);
-        return resultDTO;
-    }
-
-    /*删帖返回数据*/
-    public static ResultDTO okOfDelete(){
-        ResultDTO resultDTO=new ResultDTO();
-        resultDTO.setCode(200);
-        resultDTO.setMessage("删除成功");
-        return resultDTO;
-    }
-
-    /*修改返回数据*/
-    public static <T>ResultDTO okOfUpdate(T data){
-        ResultDTO resultDTO=new ResultDTO();
-        resultDTO.setCode(200);
-        resultDTO.setMessage("修改成功");
-        resultDTO.setData(data);
-        return resultDTO;
-    }
-
-    /*查询返回数据*/
-    public static <T>ResultDTO okOfSelect(T data){
-        ResultDTO resultDTO=new ResultDTO();
-        resultDTO.setCode(200);
-        resultDTO.setMessage("查询成功");
-        resultDTO.setData(data);
-        return resultDTO;
-    }
 
     public static ResultDTO okOf(String message){
         ResultDTO resultDTO=new ResultDTO();

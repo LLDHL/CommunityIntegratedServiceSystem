@@ -27,21 +27,21 @@ public class TieService {
         tie.setPublishTime(nowTime);
         tieMapper.publish(tie);
         ResultDTO resultDTO = new ResultDTO();
-        return resultDTO.okOfPublish(tie);
+        return resultDTO.okOf("获取成功",tie);
     }
 
     /*删帖操作*/
     public ResultDTO delete(Integer id){
         tieMapper.deleteTie(id);
         ResultDTO resultDTO = new ResultDTO();
-        return resultDTO.okOfDelete();
+        return resultDTO.okOf();
     }
 
     /* 修改操作 */
     public ResultDTO update(Tie tie) {
         tieMapper.updateTie(tie);
         ResultDTO resultDTO = new ResultDTO();
-        return resultDTO.okOfUpdate(tie);
+        return resultDTO.okOf("修改成功",tie);
     }
 
     /* 查询全部帖子操作 */
