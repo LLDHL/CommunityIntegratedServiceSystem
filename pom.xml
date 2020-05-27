@@ -21,6 +21,12 @@
 
     <dependencies>
 
+        <!--javax.mail-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
         <!-- pagehelper -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
