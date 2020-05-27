@@ -9,3 +9,6 @@ spring:
 
 mybatis:
   mapper-locations: classpath:static/mapper/*
+  #打印sql，方便调试
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
