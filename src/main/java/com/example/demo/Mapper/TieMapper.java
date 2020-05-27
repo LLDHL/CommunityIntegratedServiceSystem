@@ -27,4 +27,16 @@ public interface TieMapper {
     @Select("select * from tie")
     List<Tie> selectAllTie();
 
+    /*查询个人的所有帖子*/
+    @Select("select * from tie where publishUserId = #{publishUserId}")
+    List<Tie> selectPersonTie(Integer publishUserId);
+
+    /* 查询某一个帖子 */
+    @Select("select * from tie where id = #{id}")
+    Tie selectOneTie(Integer id);
+
+    /* 查询某一个帖子时，增加浏览数 */
+    @Update("update tie set browse = #{browse} where id = #{id}")
+    void rememberBrowse(Integer browse,Integer id);
+
 }

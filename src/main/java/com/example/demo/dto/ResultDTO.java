@@ -42,6 +42,15 @@ public class ResultDTO<T> {
         return resultDTO;
     }
 
+    /*查询返回数据*/
+    public static <T>ResultDTO okOfSelect(T data){
+        ResultDTO resultDTO=new ResultDTO();
+        resultDTO.setCode(200);
+        resultDTO.setMessage("查询成功");
+        resultDTO.setData(data);
+        return resultDTO;
+    }
+
     public static ResultDTO okOf(String message){
         ResultDTO resultDTO=new ResultDTO();
         resultDTO.setCode(200);

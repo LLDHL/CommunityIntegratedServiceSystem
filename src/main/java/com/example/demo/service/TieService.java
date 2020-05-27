@@ -8,7 +8,6 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.xml.transform.Result;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -44,7 +43,7 @@ public class TieService {
         return resultDTO.okOfUpdate(tie);
     }
 
-    /* 修改操作 */
+    /* 查询全部帖子操作 */
     public PageInfo selectAllTie(Integer page, Integer size){
         PageHelper.offsetPage(page-1,size);
         List<Tie> ties = tieMapper.selectAllTie();
@@ -52,4 +51,19 @@ public class TieService {
         return pageInfo;
     }
 
+    /* 查询个人的所有帖子 */
+    public PageInfo selectPersonTie(Integer publishUserId, Integer page, Integer size) {
+        PageHelper.offsetPage(page-1,size);
+        List<Tie> ties = tieMapper.selectPersonTie(publishUserId);
+        return new PageInfo(ties);
+    }
+
+    /* 查询一个帖子 */
+    public ResultDTO selectOneTie(Integer id) {
+        Tie tie = tieMapper.selectOneTie(id);
+        int sum = tie.getBrowse()+1;
+        tieMapper.rememberBrowse(sum,id);
+        ResultDTO resultDTO = new ResultDTO();
+        return resultDTO.okOf("查询成功",tie);
+    }
 }
