@@ -25,7 +25,6 @@ public class TieService {
         Date date = new Date();
         String nowTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
         tie.setPublishTime(nowTime);
-
         tieMapper.publish(tie);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOfPublish(tie);
