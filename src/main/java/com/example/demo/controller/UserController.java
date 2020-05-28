@@ -34,8 +34,6 @@ public class UserController {
 
     @PostMapping("/register")
     public ResultDTO<String> userRegister(@RequestBody User user){
-
-
         return ResultDTO.okOf("注册申请已提交");
     }
 

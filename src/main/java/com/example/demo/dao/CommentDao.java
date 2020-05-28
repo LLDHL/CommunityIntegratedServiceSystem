@@ -1,5 +1,4 @@
 package com.example.demo.dao;
-
 import com.example.demo.model.Comment;
 import com.example.demo.model.SecondComment;
 import org.apache.ibatis.annotations.*;

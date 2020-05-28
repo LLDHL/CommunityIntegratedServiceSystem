@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 @Repository
-public interface TieDap {
+public interface TieDao {
 
     /*发帖*/
     @Insert("insert into tie (userId,username,communityId,title,content,label,publishTime,picture,tieTypes) " +
