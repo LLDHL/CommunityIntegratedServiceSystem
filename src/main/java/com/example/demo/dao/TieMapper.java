@@ -1,4 +1,4 @@
-package com.example.demo.Mapper;
+package com.example.demo.dao;
 
 import com.example.demo.model.Tie;
 import org.apache.ibatis.annotations.*;
@@ -16,11 +16,11 @@ public interface TieMapper {
     void publish(Tie tie);
 
     /*删帖*/
-    @Delete("delete from tie where id = #{id}")
-    void deleteTie(Integer id);
+    @Delete("delete from tie where tieId = #{tieId}")
+    void deleteTie(Integer tieId);
 
     /*修改贴*/
-    @Update("update tie set title = #{title},content = #{content},label = #{label},picture = #{picture} where id = #{id}")
+    @Update("update tie set title = #{title},content = #{content},label = #{label},picture = #{picture} where tieId = #{tieId}")
     void updateTie(Tie ite);
 
     /*查询所有帖子*/
@@ -32,14 +32,19 @@ public interface TieMapper {
     List<Tie> selectPersonTie(Integer userId);
 
     /* 查询某一个帖子 */
-    @Select("select * from tie where id = #{id}")
-    Tie selectOneTie(Integer id);
+    @Select("select * from tie where tieId = #{tieId}")
+    Tie selectOneTie(Integer tieId);
 
     /* 查询某一个帖子时，增加浏览数 */
-    @Update("update tie set browse = #{browse} where id = #{id}")
-    void rememberBrowse(Integer browse,Integer id);
+    @Update("update tie set browse = #{browse} where tieId = #{tieId}")
+    void rememberBrowse(Integer browse,Integer tieId);
 
     /* 查询某一个小区的帖子 */
     @Select("select * from tie where communityId = #{communityId}")
     List<Tie> selectCommunityTie(Integer communityId);
+
+    /* 点赞帖子 */
+    @Update("update tie set likes = #{likes} where tieId = #{tieId}")
+    void likeTie(Integer likes,Integer tieId);
+
 }

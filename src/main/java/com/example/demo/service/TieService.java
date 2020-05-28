@@ -1,12 +1,11 @@
 package com.example.demo.service;
 
-import com.example.demo.Mapper.TieMapper;
+import com.example.demo.dao.TieMapper;
 import com.example.demo.dto.ResultDTO;
 import com.example.demo.model.Tie;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -31,8 +30,8 @@ public class TieService {
     }
 
     /*删帖操作*/
-    public ResultDTO delete(Integer id){
-        tieMapper.deleteTie(id);
+    public ResultDTO delete(Integer tieId){
+        tieMapper.deleteTie(tieId);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf();
     }
@@ -63,10 +62,10 @@ public class TieService {
     }
 
     /* 查询一个帖子 */
-    public ResultDTO selectOneTie(Integer id) {
-        Tie tie = tieMapper.selectOneTie(id);
+    public ResultDTO selectOneTie(Integer tieId) {
+        Tie tie = tieMapper.selectOneTie(tieId);
         int sum = tie.getBrowse()+1;
-        tieMapper.rememberBrowse(sum,id);
+        tieMapper.rememberBrowse(sum,tieId);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("查询成功",tie);
     }
@@ -79,5 +78,21 @@ public class TieService {
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("获取成功",pageInfo);
 
+    }
+
+    public ResultDTO likeTie(Integer tieId) {
+        Tie tie = tieMapper.selectOneTie(tieId);
+        Integer likes = tie.getLikes() + 1;
+        tieMapper.likeTie(likes,tieId);
+        ResultDTO resultDTO = new ResultDTO();
+        return resultDTO.okOf("点赞成功");
+    }
+
+    public ResultDTO NotLikeTie(Integer tieId) {
+        Tie tie = tieMapper.selectOneTie(tieId);
+        Integer likes = tie.getLikes() - 1;
+        tieMapper.likeTie(likes,tieId);
+        ResultDTO resultDTO = new ResultDTO();
+        return resultDTO.okOf("取消点赞成功");
     }
 }

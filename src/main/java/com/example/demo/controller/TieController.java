@@ -1,16 +1,11 @@
 package com.example.demo.controller;
 
-import com.example.demo.Mapper.TieMapper;
+import com.example.demo.dao.TieMapper;
 import com.example.demo.dto.ResultDTO;
 import com.example.demo.model.Tie;
 import com.example.demo.service.TieService;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/tie")
@@ -19,8 +14,6 @@ public class TieController {
     @Autowired
     private TieService tieService;
 
-    @Autowired
-    private TieMapper tieMapper;
 
     /* 发帖 */
     @PostMapping("/publish")
@@ -30,17 +23,17 @@ public class TieController {
     }
 
     /* 删帖 */
-    @DeleteMapping("/delete/{id}")
-    public ResultDTO deDelete(@PathVariable("id") Integer id){
-        ResultDTO result = tieService.delete(id);
+    @DeleteMapping("/delete/{tieId}")
+    public ResultDTO deDelete(@PathVariable("tieId") Integer tieId){
+        ResultDTO result = tieService.delete(tieId);
         return result;
     }
 
     /* 改贴 */
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{tieId}")
     public ResultDTO doUpdate(@RequestBody Tie tie,
-                              @PathVariable("id") Integer id){
-        tie.setId(id);
+                              @PathVariable("tieId") Integer tieId){
+        tie.setTieId(tieId);
         ResultDTO update = tieService.update(tie);
         return update;
     }
@@ -63,9 +56,9 @@ public class TieController {
     }
 
     /* 查询某一个帖子 */
-    @GetMapping("selectOneTie/{id}")
-    public ResultDTO doSelectOneTie(@PathVariable("id") Integer id){
-        ResultDTO resultDTO = tieService.selectOneTie(id);
+    @GetMapping("selectOneTie/{tieId}")
+    public ResultDTO doSelectOneTie(@PathVariable("tieId") Integer tieId){
+        ResultDTO resultDTO = tieService.selectOneTie(tieId);
         return resultDTO;
     }
 
@@ -78,4 +71,17 @@ public class TieController {
         return resultDTO;
     }
 
+    /* 点赞帖子 */
+    @PutMapping("likeTie/{tieId}")
+    public ResultDTO doLikeTie(@PathVariable("tieId") Integer tieId){
+        ResultDTO resultDTO = tieService.likeTie(tieId);
+        return resultDTO;
+    }
+
+    /* 取消点赞帖子 */
+    @PutMapping("NotLikeTie/{tieId}")
+    public ResultDTO doNotLikeTie(@PathVariable("tieId") Integer tieId){
+        ResultDTO resultDTO = tieService.NotLikeTie(tieId);
+        return resultDTO;
+    }
 }
