@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.TieMapper;
+import com.example.demo.dao.TieDap;
 import com.example.demo.dto.ResultDTO;
 import com.example.demo.model.Tie;
 import com.github.pagehelper.PageHelper;
@@ -16,7 +16,7 @@ import java.util.List;
 public class TieService {
 
     @Autowired
-    private TieMapper tieMapper;
+    private TieDap tieDap;
 
     /* 发帖操作 */
     public ResultDTO publish(Tie tie){
@@ -24,21 +24,21 @@ public class TieService {
         Date date = new Date();
         String nowTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
         tie.setPublishTime(nowTime);
-        tieMapper.publish(tie);
+        tieDap.publish(tie);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("获取成功",tie);
     }
 
     /*删帖操作*/
     public ResultDTO delete(Integer tieId){
-        tieMapper.deleteTie(tieId);
+        tieDap.deleteTie(tieId);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf();
     }
 
     /* 修改操作 */
     public ResultDTO update(Tie tie) {
-        tieMapper.updateTie(tie);
+        tieDap.updateTie(tie);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("修改成功",tie);
     }
@@ -46,7 +46,7 @@ public class TieService {
     /* 查询全部帖子操作 */
     public ResultDTO selectAllTie(Integer page, Integer size){
         PageHelper.offsetPage(page-1,size);
-        List<Tie> ties = tieMapper.selectAllTie();
+        List<Tie> ties = tieDap.selectAllTie();
         PageInfo pageInfo = new PageInfo(ties);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("查询成功",pageInfo);
@@ -55,7 +55,7 @@ public class TieService {
     /* 查询个人的所有帖子 */
     public ResultDTO selectPersonTie(Integer userId, Integer page, Integer size) {
         PageHelper.offsetPage(page-1,size);
-        List<Tie> ties = tieMapper.selectPersonTie(userId);
+        List<Tie> ties = tieDap.selectPersonTie(userId);
         PageInfo pageInfo = new PageInfo(ties);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("查询成功",pageInfo);
@@ -63,9 +63,9 @@ public class TieService {
 
     /* 查询一个帖子 */
     public ResultDTO selectOneTie(Integer tieId) {
-        Tie tie = tieMapper.selectOneTie(tieId);
+        Tie tie = tieDap.selectOneTie(tieId);
         int sum = tie.getBrowse()+1;
-        tieMapper.rememberBrowse(sum,tieId);
+        tieDap.rememberBrowse(sum,tieId);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("查询成功",tie);
     }
@@ -73,7 +73,7 @@ public class TieService {
     /*查询小区的帖子*/
     public ResultDTO selectCommunityTie(Integer communityId, Integer page, Integer size) {
         PageHelper.offsetPage(page-1,size);
-        List<Tie> ties = tieMapper.selectCommunityTie(communityId);
+        List<Tie> ties = tieDap.selectCommunityTie(communityId);
         PageInfo pageInfo = new PageInfo(ties);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("获取成功",pageInfo);
@@ -81,17 +81,17 @@ public class TieService {
     }
 
     public ResultDTO likeTie(Integer tieId) {
-        Tie tie = tieMapper.selectOneTie(tieId);
+        Tie tie = tieDap.selectOneTie(tieId);
         Integer likes = tie.getLikes() + 1;
-        tieMapper.likeTie(likes,tieId);
+        tieDap.likeTie(likes,tieId);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("点赞成功");
     }
 
     public ResultDTO NotLikeTie(Integer tieId) {
-        Tie tie = tieMapper.selectOneTie(tieId);
+        Tie tie = tieDap.selectOneTie(tieId);
         Integer likes = tie.getLikes() - 1;
-        tieMapper.likeTie(likes,tieId);
+        tieDap.likeTie(likes,tieId);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("取消点赞成功");
     }

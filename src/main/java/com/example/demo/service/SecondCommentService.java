@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.CommentMapper;
+import com.example.demo.dao.CommentDao;
 import com.example.demo.dto.ResultDTO;
 import com.example.demo.model.SecondComment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.List;
 public class SecondCommentService {
 
     @Autowired
-    private CommentMapper commentMapper;
+    private CommentDao commentDao;
 
     public ResultDTO doPublishSecondComment(SecondComment secondComment) {
         /*获取当前时间*/
@@ -23,14 +23,14 @@ public class SecondCommentService {
         secondComment.setCommentTime(nowTime);
         /* 放入二级评论标志 */
         secondComment.setCommentTypes(1);
-        commentMapper.publishSecondComment(secondComment);
+        commentDao.publishSecondComment(secondComment);
         ResultDTO resultDTO = new ResultDTO();
         return  resultDTO.okOf("发送成功",secondComment);
     }
 
     public ResultDTO doSelectSecondComment(Integer replyCommentId) {
         int commentTypes = 1;
-        List<SecondComment> secondComments = commentMapper.doSelectSecondComment(replyCommentId, commentTypes);
+        List<SecondComment> secondComments = commentDao.doSelectSecondComment(replyCommentId, commentTypes);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("获取二级评论成功",secondComments);
     }

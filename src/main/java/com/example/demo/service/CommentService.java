@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.CommentMapper;
+import com.example.demo.dao.CommentDao;
 import com.example.demo.dto.ResultDTO;
 import com.example.demo.model.Comment;
 import com.github.pagehelper.PageInfo;
@@ -15,7 +15,7 @@ import java.util.List;
 public class CommentService {
 
     @Autowired
-    private CommentMapper commentMapper;
+    private CommentDao commentDao;
 
     public ResultDTO doPublishComment(Comment comment){
         /*获取当前时间*/
@@ -24,36 +24,36 @@ public class CommentService {
         comment.setCommentTime(nowTime);
         /* 放入一级评论标志 */
         comment.setCommentTypes(0);
-        commentMapper.publishComment(comment);
+        commentDao.publishComment(comment);
         ResultDTO resultDTO = new ResultDTO();
         return  resultDTO.okOf("发送成功",comment);
     }
 
     public ResultDTO selectTeiComment(Integer tieId) {
-        List<Comment> comments = commentMapper.selectTeiComment(tieId);
+        List<Comment> comments = commentDao.selectTeiComment(tieId);
         PageInfo pageInfo = new PageInfo(comments);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("获取成功",pageInfo);
     }
 
     public ResultDTO deleteTieComment(Integer commentId) {
-        commentMapper.deleteTieComment(commentId);
+        commentDao.deleteTieComment(commentId);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("删除评论成功");
     }
 
     public ResultDTO likeComment(Integer commentId) {
-        Comment comment = commentMapper.selectOneComment(commentId);
+        Comment comment = commentDao.selectOneComment(commentId);
         Integer commentLikes = comment.getCommentLikes() + 1;
-        commentMapper.updateCommentLikes(commentId,commentLikes);
+        commentDao.updateCommentLikes(commentId,commentLikes);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("点赞成功");
     }
 
     public ResultDTO notLikeComment(Integer commentId) {
-        Comment comment = commentMapper.selectOneComment(commentId);
+        Comment comment = commentDao.selectOneComment(commentId);
         Integer commentLikes = comment.getCommentLikes() - 1;
-        commentMapper.updateCommentLikes(commentId,commentLikes);
+        commentDao.updateCommentLikes(commentId,commentLikes);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("取消点赞成功");
     }

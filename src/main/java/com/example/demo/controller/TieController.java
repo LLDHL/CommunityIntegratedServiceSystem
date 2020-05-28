@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.dao.TieMapper;
 import com.example.demo.dto.ResultDTO;
 import com.example.demo.model.Tie;
 import com.example.demo.service.TieService;

@@ -8,34 +8,32 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
-class CommentMapperTest {
+class CommentDaoTest {
 
     @Autowired
-    private CommentMapper commentMapper;
+    private CommentDao commentDao;
 
     @Test
     public void test1(){
-        commentMapper.deleteTieComment(16);
+        commentDao.deleteTieComment(16);
     }
 
     @Test
     public void test2(){
-        List<SecondComment> secondComments = commentMapper.doSelectSecondComment(12, 1);
+        List<SecondComment> secondComments = commentDao.doSelectSecondComment(12, 1);
         System.out.println(secondComments);
     }
 
     @Test
     public void test3(){
-        Comment comment = commentMapper.selectOneComment(1);
+        Comment comment = commentDao.selectOneComment(1);
         System.out.println(comment);
     }
 
     @Test
     public void test4(){
-        commentMapper.updateCommentLikes(1,0);
+        commentDao.updateCommentLikes(1,0);
     }
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 @Repository
-public interface CommentMapper {
+public interface CommentDao {
 
     @Insert("Insert into comment (tieId,commentUsername,commentUserId,commentContent,commentTime,commentTypes,commentPicture) values " +
             "(#{tieId},#{commentUsername},#{commentUserId},#{commentContent},#{commentTime},#{commentTypes},#{commentPicture})")
