@@ -377,7 +377,132 @@
     | --------   | -----   | :----: |
     | tieId | 帖子id    |  必填  |
 
-## 三、邮件服务
+
+## 三、帖子评论
+
+1. 评论帖子
+- 请求类型：Post
+
+- 请求接口
+    
+    /doPublishComment
+
+- 必要参数：Json格式
+
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | tieId | 帖子Id    |  必填  |
+    | commentUsername | 评论人姓名    |  必填  |
+    | commentUserId | 评论人Id    |  必填  |
+    | commentContent | 评论内容    |  必填  |
+    | commentTime | 评论时间    |  必填  |
+    | commentTypes | 评论类型（0是评论，1是多级评论）    |  必填  |
+    | commentPicture | 评论图片    |  非必填  |
+    
+    
+    
+- 示例演示
+```json
+{
+	"tieId":"2",
+	"commentUsername":"lzy",
+	"commentUserId":"123",
+	"commentContent":"好帖子,建议加精",
+	"commentTime":"null",
+	"commentPicture":"D://1.jpg"
+}
+```
+
+2. 查看帖子评论
+
+- 请求类型：Get
+
+- 请求接口
+    
+    selectTieComment/{tieId}
+    
+- 路径参数
+
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | tieId | 帖子Id    |  必填  |
+
+- 演示例子
+
+过于简单，不写
+
+3. 删除一级评论,二级评论
+
+- 请求类型：Delete
+
+- 请求接口
+
+    deleteTieComment/{commentId}
+    
+- 路径参数
+
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | commentId | 评论Id    |  必填  |    
+    
+- 演示示例
+
+过于简单，不写
+
+
+4. 发表二级（多级）评论
+
+- 请求类型：Post
+
+- 请求接口
+
+    /doPublishSecondComment
+    
+- 必要参数：Json
+
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | tieId | 帖子Id    |  必填  |
+    | commentUsername | 评论人姓名    |  必填  |
+    | commentUserId | 评论人Id    |  必填  |
+    | commentContent | 评论内容    |  必填  |
+    | commentTime | 评论时间    |  必填  |
+    | commentTypes | 评论类型（0是评论，1是多级评论）    |  必填  |
+    | replyCommentId | 回复目标评论Id    |  必填  |    
+    
+    
+- 示例演示
+
+```json
+{
+	"tieId":"1",
+	"commentUsername":"lzy",
+	"commentUserId":"123",
+	"commentContent":"这必须是一条好评论",
+	"commentTime":"null",
+	"replyCommentId":"1"
+}
+```
+
+5. 查询二级（多级）评论
+
+- 请求类型：Get
+
+- 请求接口
+
+    /selectSecondComment/{replyCommentId}
+    
+- 路径参数
+
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | replyCommentId | 回复目标评论Id    |  必填  |
+    
+- 演示示例
+
+过于简单，不写            
+
+## 四、邮件服务
 
 - 请求类型： Psot
 - 请求接口
