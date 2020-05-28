@@ -41,4 +41,20 @@ public class CommentService {
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("删除评论成功");
     }
+
+    public ResultDTO likeComment(Integer commentId) {
+        Comment comment = commentMapper.selectOneComment(commentId);
+        Integer commentLikes = comment.getCommentLikes() + 1;
+        commentMapper.updateCommentLikes(commentId,commentLikes);
+        ResultDTO resultDTO = new ResultDTO();
+        return resultDTO.okOf("点赞成功");
+    }
+
+    public ResultDTO notLikeComment(Integer commentId) {
+        Comment comment = commentMapper.selectOneComment(commentId);
+        Integer commentLikes = comment.getCommentLikes() - 1;
+        commentMapper.updateCommentLikes(commentId,commentLikes);
+        ResultDTO resultDTO = new ResultDTO();
+        return resultDTO.okOf("取消点赞成功");
+    }
 }

@@ -2,10 +2,7 @@ package com.example.demo.dao;
 
 import com.example.demo.model.Comment;
 import com.example.demo.model.SecondComment;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,6 +18,9 @@ public interface CommentMapper {
     @Select("Select * from comment where tieId = #{tieId}")
     List<Comment> selectTeiComment(Integer tieId);
 
+    @Select("Select * from comment where commentId = #{commentId}")
+    Comment selectOneComment(Integer commentId);
+
     @Delete("Delete from comment where commentId = #{commentId}")
     void deleteTieComment(Integer commentId);
 
@@ -31,4 +31,6 @@ public interface CommentMapper {
     @Select("Select * from comment where replyCommentId = #{replyCommentId} and commentTypes = #{commentTypes}")
     List<SecondComment> doSelectSecondComment(Integer replyCommentId, Integer commentTypes);
 
+    @Update("Update comment set commentLikes = #{commentLikes} where commentId = #{commentId}")
+    void updateCommentLikes(Integer commentId,Integer commentLikes);
 }

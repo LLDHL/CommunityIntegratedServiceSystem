@@ -11,7 +11,6 @@ public class SecondComment {
     public Integer commentUserId;
     public String commentContent;
     public String commentTime;
-    public Integer commentLikes;
     public Integer commentTypes;
     public Integer replyCommentId;
 

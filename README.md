@@ -14,11 +14,12 @@
 
 ## 二、帖子的操作
 
+
 1. 发帖操作
 - 请求方式：**Post**
 - 接口
 
-	**/publish**
+	    /tie/publish
 
 - 必要参数：Json格式
     
@@ -53,7 +54,7 @@
 - 请求方式：**Put**
 - 接口
 
-	**/update/{id}**
+	    /tie/update/{id}
 	
 	
 - 路径参数
@@ -83,7 +84,7 @@
 - 请求方式：**Delete**
 - 接口
 
-	**/delete/{tieId}**
+	    /tie/delete/{tieId}
 	
 - 路径参数
 
@@ -106,7 +107,7 @@
 - 请求方式：Get
 - 接口
 	
-	**/selectAllTie/{page}/{size}**  
+	    /tie/selectAllTie/{page}/{size}**
 
 - 路径参数
 
@@ -180,7 +181,7 @@
 - 请求方式：Get
 - 接口
 
-	**selectPersonTie/{userId}/{page}/{size}**
+	    /tie/selectPersonTie/{userId}/{page}/{size}
 	
 	路径参数
 	
@@ -252,7 +253,7 @@
 - 请求方式：Get
 - 接口
 
-	**selectOneTie/{tieId}**
+	    /tie/selectOneTie/{tieId}
 	
 
 - 路径参数
@@ -289,7 +290,7 @@
 - 请求方式：Get
 - 接口
 
-	**selectCommunityTie/{communityId}/{page}/{size}**
+	    /tie/selectCommunityTie/{communityId}/{page}/{size}
 	
 
 - 路径参数
@@ -365,11 +366,11 @@
 - 请求方式：Put
 - 点赞接口
 
-    likeTie/{tieId}
+        /tie/likeTie/{tieId}
 
 - 取消点赞接口
 
-    NotLikeTie/{tieId}
+        /tie/NotLikeTie/{tieId}
     
 - 路径参数
 
@@ -385,7 +386,7 @@
 
 - 请求接口
     
-    /doPublishComment
+        /comment/doPublishComment
 
 - 必要参数：Json格式
 
@@ -419,7 +420,7 @@
 
 - 请求接口
     
-    selectTieComment/{tieId}
+        /comment/selectTieComment/{tieId}
     
 - 路径参数
 
@@ -437,7 +438,7 @@
 
 - 请求接口
 
-    deleteTieComment/{commentId}
+        /comment/deleteTieComment/{commentId}
     
 - 路径参数
 
@@ -456,7 +457,7 @@
 
 - 请求接口
 
-    /doPublishSecondComment
+        /comment/doPublishSecondComment
     
 - 必要参数：Json
 
@@ -490,7 +491,7 @@
 
 - 请求接口
 
-    /selectSecondComment/{replyCommentId}
+        /comment/selectSecondComment/{replyCommentId}
     
 - 路径参数
 
@@ -502,12 +503,32 @@
 
 过于简单，不写            
 
-## 四、邮件服务
+6. 点赞、取消点赞一级评论
 
-- 请求类型： Psot
+- 请求类型：Put
+
 - 请求接口
 
-    **/deSendEmail**
+    点赞：
+    
+        likeComment/{commentId}
+    
+    取消点赞：
+    
+        /notLikeComment/{commentId}
+        
+- 路径参数
+
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | commentId | 一级回复Id    |  必填  |        
+
+## 四、邮件服务
+
+- 请求类型： Post
+- 请求接口
+
+    **/email/deSendEmail**
     
 - 必要参数：Json格式
 

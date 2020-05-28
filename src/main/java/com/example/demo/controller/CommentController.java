@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.ResultDTO;
 import com.example.demo.model.Comment;
 import com.example.demo.model.SecondComment;
+import com.example.demo.model.Tie;
 import com.example.demo.service.CommentService;
 import com.example.demo.service.SecondCommentService;
 import org.apache.ibatis.annotations.Delete;
@@ -55,6 +56,20 @@ public class CommentController {
     @GetMapping("/selectSecondComment/{replyCommentId}")
     public ResultDTO doSelectSecondComment(@PathVariable("replyCommentId") Integer replyCommentId){
         ResultDTO resultDTO = secondCommentService.doSelectSecondComment(replyCommentId);
+        return resultDTO;
+    }
+
+    /* 点赞一级评论 */
+    @PutMapping("/likeComment/{commentId}")
+    public ResultDTO doLikeComment(@PathVariable("commentId") Integer commentId) {
+        ResultDTO resultDTO = commentService.likeComment(commentId);
+        return resultDTO;
+    }
+
+    /* 取消点赞一级评论 */
+    @PutMapping("/notLikeComment/{commentId}")
+    public ResultDTO doNotLikeComment(@PathVariable("commentId") Integer commentId) {
+        ResultDTO resultDTO = commentService.notLikeComment(commentId);
         return resultDTO;
     }
 }

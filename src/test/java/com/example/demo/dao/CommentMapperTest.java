@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.example.demo.model.Comment;
 import com.example.demo.model.SecondComment;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,17 @@ class CommentMapperTest {
     public void test2(){
         List<SecondComment> secondComments = commentMapper.doSelectSecondComment(12, 1);
         System.out.println(secondComments);
+    }
+
+    @Test
+    public void test3(){
+        Comment comment = commentMapper.selectOneComment(1);
+        System.out.println(comment);
+    }
+
+    @Test
+    public void test4(){
+        commentMapper.updateCommentLikes(1,0);
     }
 
 }
