@@ -15,6 +15,11 @@
         where name = #{name};
     </select>
 
+    <select id="findAllUser" resultType="com.example.demo.model.User">
+        select *
+        from LLDHL.authstr;
+    </select>
+
     <insert id="insertUser" parameterType="com.example.demo.model.User">
         INSERT INTO LLDHL.authstr(name, password, sex, tel, email, headUrl, communityId, address, role)
         VALUES (
