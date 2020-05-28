@@ -6,7 +6,7 @@ import lombok.Data;
 public class Tie {
 
     /*帖子表*/
-    private Integer tieId;   // 帖子id
+    private Integer id;   // 帖子id
     private Integer userId;  // 发帖人 id
     private String username;  //发帖人姓名
     private Integer communityId;  //发帖人小区Id

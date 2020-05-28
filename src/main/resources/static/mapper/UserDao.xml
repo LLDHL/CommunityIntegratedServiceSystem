@@ -17,9 +17,7 @@
 
     <insert id="insertUser" parameterType="com.example.demo.model.User">
         INSERT INTO LLDHL.user(name, password, sex, tel, email, headUrl, communityId, address, role)
-        VALUES (
-                   #{name},#{password},#{sex},#{tel},#{email},#{headUrl},#{communityId},#{address},#{role}
-               )
+        VALUES (#{name}, #{password}, #{sex}, #{tel}, #{email}, #{headUrl}, #{communityId}, #{address}, #{role})
     </insert>
 
     <delete id="deleteUser" parameterType="Integer">
@@ -30,16 +28,16 @@
 
     <update id="updateUser" parameterType="com.example.demo.model.User">
         UPDATE LLDHL.user
-        SET name=       #{name},
-            password=   #{password},
-            sex=        #{sex},
-            tel=        #{tel},
-            email=      #{email},
-            headUrl=    #{headUrl},
+        SET name= #{name},
+            password= #{password},
+            sex= #{sex},
+            tel= #{tel},
+            email= #{email},
+            headUrl= #{headUrl},
             communityId=#{communityId},
-            address=    #{address},
-            role=       #{role}
-            WHERE id =  #{id}
+            address = #{address},
+            role= #{role}
+        WHERE id = #{id}
     </update>
 
 </mapper>
