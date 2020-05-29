@@ -108,7 +108,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()//关闭对跨域请求的限制
                 .authorizeRequests()
-                .antMatchers("/login_page","/login","/validateCodeImg",
+                .antMatchers("/login_page","/login","/validateCodeImg","/register",
 
                         // 测试用，以后删
                         "/tie/**","/email/**","/comment/**","/publishComplaint/**",
