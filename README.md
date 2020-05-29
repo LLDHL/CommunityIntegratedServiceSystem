@@ -62,6 +62,7 @@
 	| 参数名        | 参数说明    |  备注  |
     | --------   | -----   | :----: |
     | tieId|  当前帖子的tieId      |   必填    |
+    
 - 必要参数：Json格式
 
 	| 参数名        | 参数说明    |  备注  |
@@ -468,7 +469,6 @@
     | commentUserId | 评论人Id    |  必填  |
     | commentContent | 评论内容    |  必填  |
     | commentTime | 评论时间    |  必填  |
-    | commentTypes | 评论类型（0是评论，1是多级评论）    |  必填  |
     | replyCommentId | 回复目标评论Id    |  必填  |    
     
     
@@ -546,3 +546,147 @@
     "emailContent":"邮件测试--内容"
 }
 ```    
+
+
+## 五、投诉建议
+
+1. 用户方：投诉建议
+
+1.1 用户发起投诉
+- 请求类型：Post
+
+- 请求接口
+
+        /publishComplaint/doPublishComplaint
+
+- 必要参数
+
+	| 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | userId | 用户Id    |  必填  |
+    | username | 用户名    |  必填  |
+    | complaintContent | 投诉内容    |  必填  |
+    | communityId | 小区Id    |  必填  |
+    | complaintTime | 投诉时间    |  null  |
+    | userEmail | 用户邮件    |  必填  |
+    | userPhone | 用户联系方式    |  必填  |
+    
+    
+1.2 用户修改投诉建议
+- 请求类型：Put
+- 请求接口
+
+        /publishComplaint/doUpdateMyComplaint/{complaintId}    
+
+- 路径参数
+
+	| 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | complaintId | 投诉建议Id    |  必填  |
+    
+- 必要参数：Json格式
+
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | complaintContent | 投诉建议内容    |  必填  |
+    
+   
+
+1.3 用户查看自己的投诉建议
+- 请求类型：Get
+- 请求接口
+
+        /publishComplaint/doSelectMyComplaint/{userId}/{page}/{size}
+
+- 路径参数
+
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | userId | 用户Id    |  必填  |
+    | page |  当前页数    |  必填  |
+    | size | 当前页显示条数    |  必填  |
+
+
+1.4 用户查看小区所有的投诉建议
+
+- 请求类型：Get
+
+- 请求接口
+
+        /publishComplaint/doSelectCommunityComplaint/{communityId}/{page}/{size}
+
+- 路径参数
+
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | communityId | 小区Id    |  必填  |
+    | page |  当前页数    |  必填  |
+    | size | 当前页显示条数    |  必填  |
+
+
+
+1.5 用户删除投诉建议
+- 请求类型：Delete
+- 请求接口
+
+        /publishComplaint/doDeleteMyComplaint/{complaintId}
+
+- 路径参数
+
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | complaintId | 投诉建议Id   |  必填  |
+
+2. 物业方：投诉建议
+
+2.1 跟进投诉建议
+- 请求类型：Put
+- 请求接口
+
+        /respondComplaint/doRespondComplaintByComplaintId/{complaintId}           
+
+- 参数类型：json
+
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | respondComplaintUserId | 回复投诉建议用户Id    |  必填  |
+    | respondComplaintUsername |  回复投诉建议用户Id名   |  必填  |
+    | respondComplaintContent | 回复投诉内容    |  必填  |
+    | respondComplaintTime | 回复时间    |  空  |
+    | respondComplaintAuthority |  回复投诉建议用户权限   |  必填  |
+
+- 路径参数：
+
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | complaintId | 投诉建议Id   |  必填  |
+    
+    
+    
+2.2 跟进投诉建议
+- 请求类型：Get
+- 请求接口
+
+        /respondComplaint/doSelectMyRespondComplaint/{respondComplaintUserId}/{page}/{size}     
+
+- 路径参数：
+
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | respondComplaintUserId | 处理投诉跟进Id   |  必填  |
+    | page | 当前页数   |  必填  |
+    | size | 当前显示条数   |  必填  |
+    
+    
+2.3 跟进投诉建议
+- 请求类型：Get
+- 请求接口
+
+        /respondComplaint/doSelectNoRespondComplaint/{page}/{size}         
+
+- 路径参数：
+
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | page | 当前页数   |  必填  |
+    | size | 当前显示条数   |  必填  |    | 参数名        | 参数说明    |  备注  |

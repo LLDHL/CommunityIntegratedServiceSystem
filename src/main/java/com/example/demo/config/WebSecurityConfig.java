@@ -111,7 +111,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login_page","/login","/validateCodeImg",
 
                         // 测试用，以后删
-                        "/tie/**","/email/**","/comment/**",
+                        "/tie/**","/email/**","/comment/**","/publishComplaint/**",
+                        "/respondComplaint/**",
 
                         //下为swagger的页面
                         "/v2/api-docs", "/configuration/ui", "/swagger-resources",

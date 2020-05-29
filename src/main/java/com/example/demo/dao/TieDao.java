@@ -20,7 +20,13 @@ public interface TieDao {
     void deleteTie(Integer tieId);
 
     /*修改贴*/
-    @Update("update tie set title = #{title},content = #{content},label = #{label},picture = #{picture} where tieId = #{tieId}")
+    @Update("update tie set " +
+            "title = #{title}," +
+            "content = #{content}," +
+            "label = #{label}," +
+            "picture = #{picture} " +
+            "where " +
+            "tieId = #{tieId}")
     void updateTie(Tie ite);
 
     /*查询所有帖子*/
