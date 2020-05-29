@@ -1,19 +1,23 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.ResultDTO;
-import com.example.demo.model.User;
+import com.example.demo.model.User;import com.example.demo.service.UserService;
 import com.example.demo.untils.RandomValidateCode;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Controller
+@RestController
 public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @RequestMapping(value = "/validateCodeImg", method = RequestMethod.GET)
     public ResultDTO<String> downloadWCImage(HttpServletResponse response, HttpServletRequest request) {
@@ -34,6 +38,10 @@ public class UserController {
 
     @PostMapping("/register")
     public ResultDTO<String> userRegister(@RequestBody User user){
+        String password = user.getPassword();
+        String encodePassword = bCryptPasswordEncoder.encode(password);
+        user.setPassword(encodePassword);//加密密码
+        userService.userRegister(user);
         return ResultDTO.okOf("注册申请已提交");
     }
 
