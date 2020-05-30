@@ -48,49 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationDetailsSource<HttpServletRequest, WebAuthenticationDetails> authenticationDetailsSource;
 
-    /**
-     * Used by the default implementation of {@link #authenticationManager()} to attempt
-     * to obtain an {@link AuthenticationManager}. If overridden, the
-     * {@link AuthenticationManagerBuilder} should be used to specify the
-     * {@link AuthenticationManager}.
-     *
-     * <p>
-     * The {@link #authenticationManagerBean()} method can be used to expose the resulting
-     * {@link AuthenticationManager} as a Bean. The {@link #userDetailsServiceBean()} can
-     * be used to expose the last populated {@link UserDetailsService} that is created
-     * with the {@link AuthenticationManagerBuilder} as a Bean. The
-     * {@link UserDetailsService} will also automatically be populated on
-     * {@link HttpSecurity#getSharedObject(Class)} for use with other
-     * {@link SecurityContextConfigurer} (i.e. RememberMeConfigurer )
-     * </p>
-     *
-     * <p>
-     * For example, the following configuration could be used to register in memory
-     * authentication that exposes an in memory {@link UserDetailsService}:
-     * </p>
-     *
-     * <pre>
-     * &#064;Override
-     * protected void configure(AuthenticationManagerBuilder auth) {
-     * 	auth
-     * 	// enable in memory based authentication with a user named
-     * 	// &quot;user&quot; and &quot;admin&quot;
-     * 	.inMemoryAuthentication().withUser(&quot;user&quot;).password(&quot;password&quot;).roles(&quot;USER&quot;).and()
-     * 			.withUser(&quot;admin&quot;).password(&quot;password&quot;).roles(&quot;USER&quot;, &quot;ADMIN&quot;);
-     * }
-     *
-     * // Expose the UserDetailsService as a Bean
-     * &#064;Bean
-     * &#064;Override
-     * public UserDetailsService userDetailsServiceBean() throws Exception {
-     * 	return super.userDetailsServiceBean();
-     * }
-     *
-     * </pre>
-     *
-     * @param auth the {@link AuthenticationManagerBuilder} to use
-     * @throws Exception
-     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //添加带验证码校验的密码验证类
@@ -108,8 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()//关闭对跨域请求的限制
                 .authorizeRequests()
-                .antMatchers("/login_page","/login","/validateCodeImg","/register",
-
+                .antMatchers("/guest/**",
                         // 测试用，以后删
                         "/tie/**","/email/**","/comment/**","/publishComplaint/**",
                         "/respondComplaint/**","/repair/**","/okRepair/**","/picture/**",
@@ -118,6 +74,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v2/api-docs", "/configuration/ui", "/swagger-resources",
                         "/configuration/security", "/swagger-ui.html", "/webjars/**",
                         "/swagger-resources/configuration/ui","/swagge‌​r-ui.html").permitAll()//所有人都能访问登录页面
+//                .antMatchers("/tie/**","/comment/**").hasAnyRole("user","admin","pmcAdmin")//发帖回帖限制
+//                .antMatchers("/admin/**","/email/**").hasAnyRole("admin")//管理员接口限制
+
                 .anyRequest().authenticated()//每个请求都必须被认证
                 .and()
                     .formLogin().loginPage("/login_page")
@@ -128,7 +87,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .logout().logoutSuccessHandler(new ApiLogoutSuccessHandler())//登出监听器
                     .logoutUrl("/logout");//登出接口
-
     }
 
     //定义异常返回信息
@@ -164,7 +122,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private class ApiLoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
         @Override
         public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-
 //            log.info("[" + SecurityContextHolder.getContext().getAuthentication().getPrincipal() +"]登录失败！");
             //登录失败后移除session中验证码信息
             request.getSession().removeAttribute("codeValue");

@@ -379,7 +379,6 @@
     | --------   | -----   | :----: |
     | tieId | 帖子id    |  必填  |
 
-
 ## 三、帖子评论
 
 1. 评论帖子
@@ -547,7 +546,6 @@
 }
 ```    
 
-
 ## 五、投诉建议
 
 1. 用户方：投诉建议
@@ -693,6 +691,7 @@
     
     
     
+    
 ## 六、图片操作
 
 1. 图片上传
@@ -704,8 +703,6 @@
         /picture/upload
         
 - 图片格式：.jpg             
-
-
 
 ## 七、报修功能
 
@@ -850,3 +847,120 @@
     | okRepairUserId | 维修师傅Id   |  必填  |
     | page | 当前页数   |  必填  |
     | size | 当前显示条数   |  必填  |  
+    
+##八、用户注册及管理员审核
+1.用户提交注册申请
+
+1.1 用户上传房产图片等佐证文件
+
+- 请求方式Post
+- 接口
+
+        /guest/registerImageUpload
+        
+- 返回值
+
+        文件名用于1.2内的headurl
+
+1.2 用户提交申请
+
+- 请求方式Post
+- 接口
+    
+        /guest/register
+
+        
+- 必要参数
+
+    参数解读
+    
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | address | 具体住址   |  必填  |
+    | communityId | 小区id   |  必填  |
+    | email | 邮箱   |  必填  |  
+    | headUrl | 佐证材料名   |  多个图片用‘;’隔开  |  
+    | id | 无意义参数   |  必填  |  
+    | name | 用户名   |  必填  |  
+    | password | 用户密码   |  必填  |  
+    | role | 用户权限，默认填2   |  必填  |  
+    | sex | 性别   |  必填  |  
+    | tel | 联系电话   |  必填  |  
+        
+- 示例
+    
+    
+    {
+      "address": "string",
+      "communityId": "string",
+      "email": "chaogaowen@foxmail.com",
+      "headUrl": "佐证材料名称",
+      "id": 0,
+      "name": "string",
+      "password": "string",
+      "role": "string",
+      "sex": "string",
+      "tel": "string"
+    }
+
+2.管理员审核
+
+2.1获取待审核列表
+
+- GET接口
+
+        /admin/getAuthstrs
+        
+- 返回值示例
+
+        {
+          "code": 200,
+          "data": [
+            {
+              "address": "string",
+              "communityId": "string",
+              "email": "string",
+              "headUrl": "佐证材料名称，通过‘;’分割",
+              "id": 0,
+              "name": "string",
+              "password": "string",
+              "role": "string",
+              "sex": "string",
+              "tel": "string"
+            }
+          ],
+          "message": "string"
+        }
+        
+2.2获取佐证材料
+    
+- GET接口
+
+        /admin/getRegisterImage
+        
+- 参数
+        imageName 即 headurl切割后的文件名
+        
+2.3提交审核意见
+
+- Post接口
+
+        /admin/checkAuthstr
+        
+- 参数示例
+
+        {
+          "authstrId": 0,
+          "message": "string",
+          "result": true
+        }
+ - 必要参数
+ 
+     参数解读
+     
+     | 参数名        | 参数说明    |  备注  |
+     | --------   | -----   | :----: |
+     | authstrId | 被审核用户id，id源于2.1中的‘id’   |  必填  |
+     | message | 审核意见   |  必填  |
+     | result | Boolean 类型的审核结果  |  必填  |  
+     
