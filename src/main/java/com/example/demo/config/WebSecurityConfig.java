@@ -102,7 +102,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        http
 //                .authorizeRequests()
 //                .anyRequest().permitAll().and().logout().permitAll();
-//        想关掉springSecurity就用这个
+        //想关掉springSecurity就用这个
         http
                 .exceptionHandling().authenticationEntryPoint(new UnauthorizedEntryPoint())
                 .and()
