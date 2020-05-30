@@ -66,8 +66,9 @@ public class SecurityCodeProvider implements AuthenticationProvider {
 
         //验密
         boolean matches = false;
+        User user = null;
         try {
-            User user = userDao.findUserByUserName(details.getUsername());
+            user = userDao.findUserByUserName(details.getUsername());
             matches = bCryptPasswordEncoder.matches(details.getPassword(),user.getPassword());
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,7 +81,8 @@ public class SecurityCodeProvider implements AuthenticationProvider {
         }
 
         Collection<GrantedAuthority> auths = new ArrayList<>();
-        auths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        SimpleGrantedAuthority user_role = new SimpleGrantedAuthority(user.getRole());
+        auths.add(user_role);
         return new UsernamePasswordAuthenticationToken
                 (details.getUsername(), details.getPassword(), auths);
 

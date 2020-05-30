@@ -1,25 +1,40 @@
 package com.example.demo.controller;
 
+import com.example.demo.component.RegisterImageUtils;
 import com.example.demo.dto.ResultDTO;
 import com.example.demo.model.User;import com.example.demo.service.UserService;
 import com.example.demo.untils.RandomValidateCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+
+import static com.example.demo.exception.CustomErrorCode.FILE_IS_NULL;
 
 @RestController
 public class UserController {
+
+    @Value("${win_registerImageDir}")
+    private String win_registerImageDir;
+
+    @Value("${linux_registerImageDir}")
+    private String linux_registerImageDir;
+
+
 
     @Autowired
     private UserService userService;
 
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-    @RequestMapping(value = "/validateCodeImg", method = RequestMethod.GET)
+    @RequestMapping(value = "/guest/validateCodeImg", method = RequestMethod.GET)
     public ResultDTO<String> downloadWCImage(HttpServletResponse response, HttpServletRequest request) {
         response.setContentType("image/jpeg");// 设置相应类型,告诉浏览器输出的内容为图片
         response.setHeader("Pragma", "No-cache");// 设置响应头信息，告诉浏览器不要缓存此内容
@@ -36,7 +51,7 @@ public class UserController {
         return ResultDTO.okOf("验证码获取成功");
     }
 
-    @PostMapping("/register")
+    @PostMapping("/guest/register")
     public ResultDTO<String> userRegister(@RequestBody User user){
         String password = user.getPassword();
         String encodePassword = bCryptPasswordEncoder.encode(password);
@@ -45,6 +60,30 @@ public class UserController {
         return ResultDTO.okOf("注册申请已提交");
     }
 
+    @Autowired
+    private RegisterImageUtils registerImageUtils;
 
+    @PostMapping("/guest/registerImageUpload")
+    public ResultDTO<String> imageUpload(@RequestParam("img")MultipartFile multipartFile){
+        String dir= registerImageUtils.getRegisterImageDir();
+        if(multipartFile.isEmpty()){
+            ResultDTO.errorOf(FILE_IS_NULL);
+        }
+
+        String fileName=multipartFile.getOriginalFilename();
+
+        File dest=new File(dir+fileName);
+        if (!dest.getParentFile().exists()){
+            dest.getParentFile().mkdirs();
+        }
+
+        try {
+            multipartFile.transferTo(dest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return ResultDTO.okOf(fileName);
+    }
 
 }

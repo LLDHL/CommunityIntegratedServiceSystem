@@ -6,7 +6,6 @@ spring:
     username: root
     password: 81234567
     url: jdbc:mysql://116.62.159.13:3306/LLDHL?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
-
   # JavaMailSender Config  邮件服务器配置
   mail:
     username: 594183034@qq.com
@@ -36,7 +35,8 @@ mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-
+win_registerImageDir: D:\\registerImage\\
+linux_registerImageDir: /root/registerImage/
 
 
 
