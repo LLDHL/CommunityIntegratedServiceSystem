@@ -11,8 +11,10 @@ import java.util.List;
 public interface TieDao {
 
     /*发帖*/
-    @Insert("insert into tie (userId,username,communityId,title,content,label,publishTime,picture,tieTypes) " +
-            "values (#{userId},#{username},#{communityId},#{title},#{content},#{label},#{publishTime},#{picture},#{tieTypes})")
+    @Insert("insert into tie " +
+            "(userId,username,communityId,title,content,label,publishTime,picture,tieTypes) " +
+            "values " +
+            "(#{userId},#{username},#{communityId},#{title},#{content},#{label},#{publishTime},#{picture},#{tieTypes})")
     void publish(Tie tie);
 
     /*删帖*/

@@ -689,4 +689,164 @@
     | 参数名        | 参数说明    |  备注  |
     | --------   | -----   | :----: |
     | page | 当前页数   |  必填  |
-    | size | 当前显示条数   |  必填  |    | 参数名        | 参数说明    |  备注  |
+    | size | 当前显示条数   |  必填  |   
+    
+    
+    
+## 六、图片操作
+
+1. 图片上传
+
+- 请求方式：Post
+
+- 请求路径：
+
+        /picture/upload
+        
+- 图片格式：.jpg             
+
+
+
+## 七、报修功能
+
+#### 用户报修
+
+1. 用户报修发布
+
+- 请求方式 Post
+
+- 请求接口
+
+        /repair/publishRepair
+
+- 必要参数 
+
+    Json格式
+    
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | repairUserId | 用户Id   |  必填  |
+    | repairUsername | 用户名   |  必填  | 
+    | communityId | 小区Id   |  必填  | 
+    | repairContent | 报修内容   |  必填  | 
+    | repairPicture | 图片   |  非必填  | 
+    | homeId | 门牌号   |  必填  | 
+    | repairPhone | 报修人手机号码   |  必填  | 
+    | repairEmail | 报修人Email   |  必填  | 
+    | repairTime | 时间   |  null  | 
+
+2. 用户报修删除
+
+- 请求方式 Delete
+
+- 请求接口
+
+        /repair/deleteRepair/{repairId}
+
+- 必要参数
+
+    路径参数
+    
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | repairId | 报修Id   |  必填  |
+
+
+3. 完成维修后用户修改状态
+
+- 请求方式 Put
+
+- 请求接口
+
+        /repair/finishedRepair/{repairId}
+
+- 必要参数
+
+    路径参数
+    
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | repairId | 报修Id   |  必填  |
+      
+
+4. 查看自己所有的报修记录
+
+- 请求方式 Get
+
+- 请求接口
+
+        /repair/selectMyRepair/{repairUserId}/{page}/{num}
+
+- 必要参数
+
+    路径参数
+    
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | repairUserId | 用户Id   |  必填  |
+    | page | 当前页数   |  必填  |
+    | size | 当前显示条数   |  必填  |   
+
+
+#### 维修师傅维修
+
+1. 查询未修理的报修
+
+- 请求方式 Get
+
+- 请求接口
+
+        /okRepair/selectNoRepair/{page}/{size}
+
+- 必要参数
+
+    路径参数
+    
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | page | 当前页数   |  必填  |
+    | size | 当前显示条数   |  必填  |   
+
+
+2. 接单，去维修
+
+- 请求方式 Put
+
+- 请求接口
+
+        /okRepair/acceptRepair/{repairId}
+
+- 必要参数
+
+    路径参数
+    
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | repairId | 报修Id   |  必填  |
+    
+    Json格式
+    
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | okRepairUserId | 维修师傅Id   |  必填  |
+    | okRepairUsername | 维修师傅名   |  必填  | 
+    | okRepairTime | 接单时间   |  null  | 
+    
+
+3. 查询已接维护
+
+- 请求方式 Get
+
+- 请求接口
+
+        /okRepair/selectAcceptRepair/{okRepairUserId}/{page}/{size}
+
+- 必要参数
+
+    路径参数
+    
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | okRepairUserId | 维修师傅Id   |  必填  |
+    | page | 当前页数   |  必填  |
+    | size | 当前显示条数   |  必填  |  

@@ -112,7 +112,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                         // 测试用，以后删
                         "/tie/**","/email/**","/comment/**","/publishComplaint/**",
-                        "/respondComplaint/**",
+                        "/respondComplaint/**","/repair/**","/okRepair/**","/picture/**",
 
                         //下为swagger的页面
                         "/v2/api-docs", "/configuration/ui", "/swagger-resources",

@@ -4,6 +4,7 @@ import com.example.demo.dto.AuthstrCheckDTO;
 import com.example.demo.dto.ResultDTO;
 import com.example.demo.model.User;
 import com.example.demo.service.EmailService;
+import com.example.demo.service.TieService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,9 @@ public class AdminController {
     private UserService userService;
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private TieService tieService;
 
     @PostMapping("/admin/checkAuthstr")
     public ResultDTO<String> checkAuthstr(@RequestBody AuthstrCheckDTO authstrCheckDTO){
@@ -34,5 +38,12 @@ public class AdminController {
             u.setPassword("");
         }
         return ResultDTO.okOf("待审核列表",authstrs);
+    }
+
+    /* 管理员删帖的接口 */
+    @DeleteMapping("/admin/deleteTie/{tieId}")
+    public ResultDTO adminDoDeleteTie(@PathVariable("tieId") Integer tieId){
+        ResultDTO delete = tieService.delete(tieId);
+        return delete;
     }
 }
