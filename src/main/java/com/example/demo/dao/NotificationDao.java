@@ -10,7 +10,9 @@ import java.util.List;
 public interface NotificationDao {
     void insertNotice(Notification notification);
     void updateNotice(Notification notification);
-    User findNoticeByNoticeId(Integer noticeId);
-    List<User> findNoticeByReceiverId(Integer ReceiverId);
+    Notification findNoticeByNoticeId(Integer noticeId);
+    List<Notification> findNoticeByReceiverId(Integer ReceiverId);
     void deleteNotice(Integer noticeId);
+    void setNoticeStatus(Integer noticeId,Integer status);
+//    Integer getReceiverIdByNoticeId(Integer noticeId);
 }

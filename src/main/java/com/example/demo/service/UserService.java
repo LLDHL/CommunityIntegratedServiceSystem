@@ -58,6 +58,10 @@ public class UserService {
         return allUser;
     }
 
+    public Integer getUserId(String userName){
+        return userDao.findUserByUserName(userName).getId();
+    }
+
     public void handler(){
         //测试1
     }

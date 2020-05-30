@@ -37,4 +37,11 @@
         WHERE noticeId = #{noticeId}
     </update>
 
+    <update id="setNoticeStatus" parameterType="com.example.demo.model.Notification">
+        UPDATE LLDHL.notification
+        SET status =#{status}
+        WHERE noticeId = #{noticeId}
+    </update>
+
+
 </mapper>
