@@ -1,0 +1,44 @@
+server:
+  port: 8933
+
+spring:
+  datasource:
+    username: root
+    password: password
+    url: jdbc:mysql://服务器名称:3306/LLDHL?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+  # JavaMailSender Config  邮件服务器配置
+  mail:
+    username: 123456789@qq.com
+    password: 12345678
+    host: smtp.qq.com
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
+          # 开启加密验证,qq邮件需要
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            ssl:
+              enable: true
+    # SSL Config
+    protocol: smtp
+    port: 465
+    default-encoding: UTF-8
+
+mybatis:
+  mapper-locations: classpath:static/mapper/*
+  #打印sql，方便调试
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+win_registerImageDir: D:\\registerImage\\
+linux_registerImageDir: /root/registerImage/
+
+
+
+
+
