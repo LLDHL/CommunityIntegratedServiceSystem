@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dao.TieDao;
 import com.example.demo.dto.ResultDTO;
+import com.example.demo.model.Repair;
 import com.example.demo.model.Tie;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -94,5 +95,13 @@ public class TieService {
         tieDao.likeTie(likes,tieId);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("取消点赞成功");
+    }
+
+    public boolean findRepairByUserId(Integer userId) {
+        Tie tieByUserId = tieDao.findTieByUserId(userId);
+        if (tieByUserId.getUserId() != userId){
+            return false;
+        }
+        return true;
     }
 }

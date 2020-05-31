@@ -45,4 +45,12 @@ public class RepairService {
         PageInfo pageInfo = new PageInfo(repairs);
         return ResultDTO.okOf("查询成功",pageInfo);
     }
+
+    public boolean findRepairByUserId(Integer userId) {
+        Repair repairUser = repairDao.findRepairUserId(userId);
+        if (repairUser.getRepairUserId() != userId){
+            return false;
+        }
+        return true;
+    }
 }

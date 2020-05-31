@@ -27,8 +27,6 @@ public class UserController {
     @Value("${linux_registerImageDir}")
     private String linux_registerImageDir;
 
-
-
     @Autowired
     private UserService userService;
 
