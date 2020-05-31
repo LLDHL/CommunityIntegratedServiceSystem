@@ -849,7 +849,7 @@
     | size | 当前显示条数   |  必填  |  
     
 ##八、用户注册及管理员审核
-1.用户提交注册申请
+###1.用户提交注册申请
 
 1.1 用户上传房产图片等佐证文件
 
@@ -903,7 +903,7 @@
       "tel": "string"
     }
 
-2.管理员审核
+###2.管理员审核
 
 2.1获取待审核列表
 
@@ -964,3 +964,47 @@
      | message | 审核意见   |  必填  |
      | result | Boolean 类型的审核结果  |  必填  |  
      
+     
+##九、通知
+
+###1.获取当前用户全部通知
+
+- Get接口 userId为当前用户id
+
+        / user / allNotice / {userId}
+
+###2.删除指定通知
+
+- Delete接口 noticeId为通知id
+
+        / user / deleteNotice / {noticeId}
+
+###3.标记通知已读
+
+- Get接口 noticeId为通知id
+
+       / user / noticeRead / {noticeId}
+
+
+
+##附录
+
+###1.权限设计
+
+- 权限解读
+
+| 用户类别        | 注释    |  权限  |
+     | --------   | -----   | :----: |
+     | 工作人员 | 如维修师傅  |  worker  |
+     | 物业人员 | 物业方面的管理员   |  pmcAdmin  |
+     | 业委会成员 | 拥有小区论坛的admin权限   |  admin  | 
+     | 普通业主 | 略  |  user  | 
+
+- 测试用账户
+
+   | 用户名        | 密码    |  权限  |
+     | --------   | -----   | :----: |
+     | test | string  |  worker  |
+     | pmcAdmin | string   |  pmcAdmin  |
+     | username | name   |  admin  | 
+     | string | string  |  user  |  
