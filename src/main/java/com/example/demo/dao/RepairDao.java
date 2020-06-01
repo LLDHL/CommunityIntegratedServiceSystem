@@ -40,4 +40,7 @@ public interface RepairDao {
 
     @Select("select * from repair where okRepairUserId = #{okRepairUserId}")
     List<Repair> doSelectAcceptRepair(Integer okRepairUserId);
+
+    @Select("select * from repair where repairUserId = #{userId}")
+    Repair findRepairUserId(Integer userId);
 }
