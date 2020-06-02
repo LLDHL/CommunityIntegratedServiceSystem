@@ -43,4 +43,8 @@ public interface RepairDao {
 
     @Select("select * from repair where repairUserId = #{userId}")
     Repair findRepairUserId(Integer userId);
+
+    @Select("select * from repair where repairId = #{repairId}")
+    Repair findRepairByRepairId(Integer repairId);
+
 }

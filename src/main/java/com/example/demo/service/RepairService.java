@@ -53,4 +53,13 @@ public class RepairService {
         }
         return true;
     }
+
+    public boolean findRepairByRepairId(Integer repairId, Integer userId) {
+        Repair repair = repairDao.findRepairByRepairId(repairId);
+        if ((repair.getRepairUserId()).equals(userId)){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

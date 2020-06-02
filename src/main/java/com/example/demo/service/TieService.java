@@ -97,11 +97,12 @@ public class TieService {
         return resultDTO.okOf("取消点赞成功");
     }
 
-    public boolean findRepairByUserId(Integer userId) {
-        Tie tieByUserId = tieDao.findTieByUserId(userId);
-        if (tieByUserId.getUserId() != userId){
+    public boolean findTieByTieId(Integer userId, Integer tieId) {
+        Tie tie = tieDao.selectOneTie(tieId);
+        if ((tie.getUserId().equals(userId))){
+            return true;
+        }else{
             return false;
         }
-        return true;
     }
 }

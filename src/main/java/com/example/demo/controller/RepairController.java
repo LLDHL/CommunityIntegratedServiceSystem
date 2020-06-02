@@ -37,7 +37,7 @@ public class RepairController {
         String username = authentication.getName();//当前登录的用户名
         Integer userId = userService.getUserId(username);
 
-        if(repairService.findRepairByUserId(userId)){
+        if(repairService.findRepairByRepairId(repairId,userId)){
             ResultDTO resultDTO = repairService.deleteRepair(repairId);
             return resultDTO;
         }else{
@@ -53,7 +53,7 @@ public class RepairController {
         String username = authentication.getName();//当前登录的用户名
         Integer userId = userService.getUserId(username);
 
-        if(repairService.findRepairByUserId(userId)){
+        if(repairService.findRepairByRepairId(repairId,userId)){
             ResultDTO resultDTO = repairService.repairFinished(repairId);
             return resultDTO;
         }else{

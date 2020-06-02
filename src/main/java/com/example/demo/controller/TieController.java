@@ -40,7 +40,7 @@ public class TieController {
         String username = authentication.getName();//当前登录的用户名
         Integer userId = userService.getUserId(username);
 
-        if (tieService.findRepairByUserId(userId)){
+        if (tieService.findTieByTieId(tieId,userId)){
             ResultDTO result = tieService.delete(tieId);
             return result;
         }else{
@@ -59,7 +59,7 @@ public class TieController {
         String username = authentication.getName();//当前登录的用户名
         Integer userId = userService.getUserId(username);
 
-        if (tieService.findRepairByUserId(userId)){
+        if (tieService.findTieByTieId(tieId,userId)){
             tie.setTieId(tieId);
             ResultDTO update = tieService.update(tie);
             return update;
