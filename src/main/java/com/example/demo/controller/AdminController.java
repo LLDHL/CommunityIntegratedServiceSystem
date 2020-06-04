@@ -1,16 +1,21 @@
 package com.example.demo.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.example.demo.component.RegisterImageUtils;
 import com.example.demo.dto.AuthstrCheckDTO;
 import com.example.demo.dto.ResultDTO;
 import com.example.demo.exception.CustomErrorCode;
+import com.example.demo.model.AdminOperateLog;
 import com.example.demo.model.User;
 import com.example.demo.service.EmailService;
+import com.example.demo.service.LogService;
 import com.example.demo.service.TieService;
 import com.example.demo.service.UserService;
+import com.example.demo.untils.OperateLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spring.web.json.Json;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,9 +29,10 @@ public class AdminController {
     private UserService userService;
     @Autowired
     private EmailService emailService;
-
     @Autowired
     private TieService tieService;
+    @Autowired
+    private LogService logService;
 
     @Value("${win_registerImageDir}")
     private String win_registerImageDir;
@@ -34,6 +40,7 @@ public class AdminController {
     @Value("${linux_registerImageDir}")
     private String linux_registerImageDir;
 
+    @OperateLog(operateModel="审核模块",operateType = "post",operateDesc = "注册审核")
     @PostMapping("/admin/checkAuthstr")
     public ResultDTO<String> checkAuthstr(@RequestBody AuthstrCheckDTO authstrCheckDTO){
         String authstrEmail = userService.getAuthstrEmail(authstrCheckDTO.getAuthstrId());
@@ -43,6 +50,7 @@ public class AdminController {
         return ResultDTO.okOf("处理完成");
     }
 
+    @OperateLog(operateModel="审核模块",operateType = "get",operateDesc = "审核列表")
     @RequestMapping(value = "/admin/getAuthstrs",method = RequestMethod.GET)
     public ResultDTO<List<User>> getAuthstrs(){
         List<User> authstrs = userService.getAuthstrs();
@@ -53,6 +61,7 @@ public class AdminController {
     }
 
     /* 管理员删帖的接口 */
+    @OperateLog(operateModel="论坛管理模块",operateType = "delete",operateDesc = "删帖")
     @DeleteMapping("/admin/deleteTie/{tieId}")
     public ResultDTO adminDoDeleteTie(@PathVariable("tieId") Integer tieId){
         ResultDTO delete = tieService.delete(tieId);
@@ -61,6 +70,8 @@ public class AdminController {
 
     @Autowired
     private RegisterImageUtils registerImageUtils;
+
+    @OperateLog(operateModel="审核模块",operateType = "get",operateDesc = "审核图片")
     @GetMapping("/admin/getRegisterImage")
     public ResultDTO<String> getRegisterImage(@RequestParam(name = "imageName") String imageName, HttpServletRequest req, HttpServletResponse res){
         String dir = registerImageUtils.getRegisterImageDir();
@@ -108,4 +119,20 @@ public class AdminController {
         System.out.println("success");
         return ResultDTO.okOf("下载成功");
     }
+
+    @GetMapping("/admin/operate/findAllLog")
+    public ResultDTO<List<AdminOperateLog>> findAllLog(){
+        return ResultDTO.okOf("操作列表",logService.findAllLog());
+    }
+
+    @GetMapping("/admin/operate/findLogByAdminId/{adminId}")
+    public ResultDTO<List<AdminOperateLog>> findLogByAdminId(@PathVariable Integer adminId){
+        return ResultDTO.okOf("操作列表",logService.findLogByAdminId(adminId));
+    }
+
+    @GetMapping("/admin/operate/findByOperateId/{operateId}")
+    public ResultDTO<AdminOperateLog> findByOperateId(@PathVariable Integer operateId){
+        return ResultDTO.okOf("操作列表",logService.findByOperateId(operateId));
+    }
+
 }
