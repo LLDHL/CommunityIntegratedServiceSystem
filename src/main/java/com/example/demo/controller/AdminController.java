@@ -40,30 +40,30 @@ public class AdminController {
     @Value("${linux_registerImageDir}")
     private String linux_registerImageDir;
 
-    @OperateLog(operateModel="审核模块",operateType = "post",operateDesc = "注册审核")
+    @OperateLog(operateModel = "审核模块", operateType = "post", operateDesc = "注册审核")
     @PostMapping("/admin/checkAuthstr")
-    public ResultDTO<String> checkAuthstr(@RequestBody AuthstrCheckDTO authstrCheckDTO){
+    public ResultDTO<String> checkAuthstr(@RequestBody AuthstrCheckDTO authstrCheckDTO) {
         String authstrEmail = userService.getAuthstrEmail(authstrCheckDTO.getAuthstrId());
         userService.adminAuthstr(authstrCheckDTO.getAuthstrId(),
-                authstrCheckDTO.getResult(),authstrCheckDTO.getMessage());
-        emailService.sendEmail(authstrEmail,"审核结果",authstrCheckDTO.getMessage());
+                authstrCheckDTO.getResult(), authstrCheckDTO.getMessage());
+        emailService.sendEmail(authstrEmail, "审核结果", authstrCheckDTO.getMessage());
         return ResultDTO.okOf("处理完成");
     }
 
-    @OperateLog(operateModel="审核模块",operateType = "get",operateDesc = "审核列表")
-    @RequestMapping(value = "/admin/getAuthstrs",method = RequestMethod.GET)
-    public ResultDTO<List<User>> getAuthstrs(){
+    @OperateLog(operateModel = "审核模块", operateType = "get", operateDesc = "审核列表")
+    @RequestMapping(value = "/admin/getAuthstrs", method = RequestMethod.GET)
+    public ResultDTO<List<User>> getAuthstrs() {
         List<User> authstrs = userService.getAuthstrs();
-        for (User u :authstrs) {//防止加密后密码泄密
+        for (User u : authstrs) {//防止加密后密码泄密
             u.setPassword("");
         }
-        return ResultDTO.okOf("待审核列表",authstrs);
+        return ResultDTO.okOf("待审核列表", authstrs);
     }
 
     /* 管理员删帖的接口 */
-    @OperateLog(operateModel="论坛管理模块",operateType = "delete",operateDesc = "删帖")
+    @OperateLog(operateModel = "论坛管理模块", operateType = "delete", operateDesc = "删帖")
     @DeleteMapping("/admin/deleteTie/{tieId}")
-    public ResultDTO adminDoDeleteTie(@PathVariable("tieId") Integer tieId){
+    public ResultDTO adminDoDeleteTie(@PathVariable("tieId") Integer tieId) {
         ResultDTO delete = tieService.delete(tieId);
         return delete;
     }
@@ -71,9 +71,9 @@ public class AdminController {
     @Autowired
     private RegisterImageUtils registerImageUtils;
 
-    @OperateLog(operateModel="审核模块",operateType = "get",operateDesc = "审核图片")
+    @OperateLog(operateModel = "审核模块", operateType = "get", operateDesc = "审核图片")
     @GetMapping("/admin/getRegisterImage")
-    public ResultDTO<String> getRegisterImage(@RequestParam(name = "imageName") String imageName, HttpServletRequest req, HttpServletResponse res){
+    public ResultDTO<String> getRegisterImage(@RequestParam(name = "imageName") String imageName, HttpServletRequest req, HttpServletResponse res) {
         String dir = registerImageUtils.getRegisterImageDir();
         res.setHeader("content-type", "application/octet-stream");
         res.setContentType("application/octet-stream");
@@ -120,19 +120,17 @@ public class AdminController {
         return ResultDTO.okOf("下载成功");
     }
 
-    @GetMapping("/admin/operate/findAllLog")
-    public ResultDTO<List<AdminOperateLog>> findAllLog(){
-        return ResultDTO.okOf("操作列表",logService.findAllLog());
-    }
+    @GetMapping("/admin/operateLog")
+    public ResultDTO<List<AdminOperateLog>> findAllLog
+            (@RequestParam("adminId") Integer adminId
+                    , @RequestParam("operateId") Integer operateId) {
 
-    @GetMapping("/admin/operate/findLogByAdminId/{adminId}")
-    public ResultDTO<List<AdminOperateLog>> findLogByAdminId(@PathVariable Integer adminId){
-        return ResultDTO.okOf("操作列表",logService.findLogByAdminId(adminId));
+        if (adminId != null) {
+            return ResultDTO.okOf("操作列表", logService.findLogByAdminId(adminId));
+        } else if (operateId != null) {
+            return ResultDTO.okOf("操作列表", logService.findByOperateId(operateId));
+        } else {
+            return ResultDTO.okOf("操作列表", logService.findAllLog());
+        }
     }
-
-    @GetMapping("/admin/operate/findByOperateId/{operateId}")
-    public ResultDTO<AdminOperateLog> findByOperateId(@PathVariable Integer operateId){
-        return ResultDTO.okOf("操作列表",logService.findByOperateId(operateId));
-    }
-
 }
