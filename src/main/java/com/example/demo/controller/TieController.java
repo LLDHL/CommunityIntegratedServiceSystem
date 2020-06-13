@@ -11,7 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/tie")
+@RequestMapping("/user")
 public class TieController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class TieController {
 
 
     /* 发帖 */
-    @PostMapping("/publish")
+    @PostMapping("/ties")
     public ResultDTO doPublish(@RequestBody Tie tie){
 
         ResultDTO result = tieService.publish(tie);
@@ -33,7 +33,7 @@ public class TieController {
     }
 
     /* 删帖 */
-    @DeleteMapping("/delete/{tieId}")
+    @DeleteMapping("/ties/{tieId}")
     public ResultDTO deDelete(@PathVariable("tieId") Integer tieId){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -46,12 +46,10 @@ public class TieController {
         }else{
             return ResultDTO.errorOf(401,"你无权这么做");
         }
-
-
     }
 
     /* 改贴 */
-    @PutMapping("/update/{tieId}")
+    @PutMapping("/ties/{tieId}")
     public ResultDTO doUpdate(@RequestBody Tie tie,
                               @PathVariable("tieId") Integer tieId){
 
@@ -69,47 +67,47 @@ public class TieController {
     }
 
     /* 查询所有帖子 */
-    @GetMapping("/selectAllTie/{page}/{size}")
-    public ResultDTO deSelectAllTie(@PathVariable("page") Integer page,
-                                    @PathVariable("size") Integer size){
-        ResultDTO resultDTO = tieService.selectAllTie(page, size);
+    @GetMapping("/ties")
+    public ResultDTO deSelectAllTie2(@RequestParam(name = "page", defaultValue = "1") Integer page,
+                                     @RequestParam(name = "size", defaultValue = "5") Integer size){
+        ResultDTO resultDTO = tieService.selectAllTie(page-1, size);
         return resultDTO;
     }
 
-    /*  查询个人所有帖子 */
-    @GetMapping("selectPersonTie/{userId}/{page}/{size}")
+    /*  查看个人所有帖子 */
+    @GetMapping("/users/ties/{userId}")
     public ResultDTO doSelectPersonTie(@PathVariable("userId") Integer userId,
-                                      @PathVariable("page") Integer page,
-                                      @PathVariable("size") Integer size){
-        ResultDTO resultDTO = tieService.selectPersonTie(userId, page, size);
+                                       @RequestParam(name = "page", defaultValue = "1") Integer page,
+                                       @RequestParam(name = "size",defaultValue = "5") Integer size){
+        ResultDTO resultDTO = tieService.selectPersonTie(userId, page-1, size);
         return resultDTO;
     }
 
     /* 查询某一个帖子 */
-    @GetMapping("selectOneTie/{tieId}")
+    @GetMapping("/ties/{tieId}")
     public ResultDTO doSelectOneTie(@PathVariable("tieId") Integer tieId){
         ResultDTO resultDTO = tieService.selectOneTie(tieId);
         return resultDTO;
     }
 
     /*  查询小区所有帖子 */
-    @GetMapping("selectCommunityTie/{communityId}/{page}/{size}")
-    public ResultDTO doSelectCommunityTie(@PathVariable("communityId") Integer communityId,
-                                       @PathVariable("page") Integer page,
-                                       @PathVariable("size") Integer size){
-        ResultDTO resultDTO = tieService.selectCommunityTie(communityId, page, size);
+    @GetMapping("/community/ties")
+    public ResultDTO doSelectCommunityTie(@RequestParam(name = "communityId") Integer communityId,
+                                          @RequestParam(name = "page",defaultValue = "1") Integer page,
+                                          @RequestParam(name = "size",defaultValue = "5") Integer size){
+        ResultDTO resultDTO = tieService.selectCommunityTie(communityId, page-1, size);
         return resultDTO;
     }
 
     /* 点赞帖子 */
-    @PutMapping("likeTie/{tieId}")
+    @PutMapping("/ties/like/{tieId}")
     public ResultDTO doLikeTie(@PathVariable("tieId") Integer tieId){
         ResultDTO resultDTO = tieService.likeTie(tieId);
         return resultDTO;
     }
 
     /* 取消点赞帖子 */
-    @PutMapping("NotLikeTie/{tieId}")
+    @PutMapping("/ties/notLike/{tieId}")
     public ResultDTO doNotLikeTie(@PathVariable("tieId") Integer tieId){
         ResultDTO resultDTO = tieService.NotLikeTie(tieId);
         return resultDTO;

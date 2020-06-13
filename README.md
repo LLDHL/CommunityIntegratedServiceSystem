@@ -19,7 +19,7 @@
 - 请求方式：**Post**
 - 接口
 
-	    /tie/publish
+	    /user/ties
 
 - 必要参数：Json格式
     
@@ -54,7 +54,7 @@
 - 请求方式：**Put**
 - 接口
 
-	    /tie/update/{id}
+	    /user/ties/{tieId}
 	
 	
 - 路径参数
@@ -85,7 +85,7 @@
 - 请求方式：**Delete**
 - 接口
 
-	    /tie/delete/{tieId}
+	    /user/ties/{tieId}
 	
 - 路径参数
 
@@ -102,15 +102,14 @@
     ```
 	
 
-4. 查询帖子
+4. 查询所有帖子
 
-查询所有帖子
 - 请求方式：Get
 - 接口
 	
-	    /tie/selectAllTie/{page}/{size}**
+	    /user/ties
 
-- 路径参数
+- 请求参数
 
 	| 参数名        | 参数说明    |  备注  |
     | --------   | -----   | :----: |
@@ -182,15 +181,24 @@
 - 请求方式：Get
 - 接口
 
-	    /tie/selectPersonTie/{userId}/{page}/{size}
+	    /user/ties/{userId}
 	
 	路径参数
 	
 	| 参数名        | 参数说明    |  备注  |
     | --------   | -----   | :----: |
     | userId | 发帖人id    |  必填  |
-    | page        | 当前页码    |  必填  |
-    | size        | 每页显示的条数    |  必填  |
+    
+    请求参数
+    
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | page        | 当前页码    |  非必填，默认 1  |
+    | size        | 每页显示的条数    |  非必填，默认 5  |    
+    
+    
+    
+    
 
 - 返回🌰
 ```json
@@ -254,16 +262,14 @@
 - 请求方式：Get
 - 接口
 
-	    /tie/selectOneTie/{tieId}
-	
+	    /user/ties/{tieId}
 
 - 路径参数
 
 	| 参数名        | 参数说明    |  备注  |
     | --------   | -----   | :----: |
-    | communityId | 小区Id    |  必填  |
-    | page        | 当前页码    |  必填  |
-    | size        | 每页显示的条数    |  必填  |
+    | tieId | 帖子Id    |  必填  |
+    
     
  - 返回结果
 ```json
@@ -291,15 +297,17 @@
 - 请求方式：Get
 - 接口
 
-	    /tie/selectCommunityTie/{communityId}/{page}/{size}
+	    /user/community/ties
 	
 
-- 路径参数
+- 请求参数
 
 	| 参数名        | 参数说明    |  备注  |
     | --------   | -----   | :----: |
-    | tieId | 帖子id    |  必填  |
-    
+    | communityId | 小区id    |  必填  |
+    | page        | 当前页码    |  非必填，默认 1  |
+    | size        | 每页显示的条数    |  非必填，默认 5  |
+         
  - 返回结果
 ```json
 {
@@ -367,11 +375,11 @@
 - 请求方式：Put
 - 点赞接口
 
-        /tie/likeTie/{tieId}
+        /user/ties/likeTie/{tieId}
 
 - 取消点赞接口
 
-        /tie/NotLikeTie/{tieId}
+        /user/ties/notLikeTie/{tieId}
     
 - 路径参数
 
@@ -386,7 +394,7 @@
 
 - 请求接口
     
-        /comment/doPublishComment
+        /user/first/comment
 
 - 必要参数：Json格式
 
@@ -420,7 +428,7 @@
 
 - 请求接口
     
-        /comment/selectTieComment/{tieId}
+        /user/first/comment/{tieId}
     
 - 路径参数
 
@@ -438,7 +446,7 @@
 
 - 请求接口
 
-        /comment/deleteTieComment/{commentId}
+        /user/comment/{commentId}
     
 - 路径参数
 
@@ -457,7 +465,7 @@
 
 - 请求接口
 
-        /comment/doPublishSecondComment
+        /user/second/comment
     
 - 必要参数：Json
 
@@ -490,7 +498,7 @@
 
 - 请求接口
 
-        /comment/selectSecondComment/{replyCommentId}
+        /user/second/comment/{replyCommentId}
     
 - 路径参数
 
@@ -510,11 +518,11 @@
 
     点赞：
     
-        likeComment/{commentId}
+        /user/like/comment/{commentId}
     
     取消点赞：
     
-        /notLikeComment/{commentId}
+        /user/notLike/comment/{commentId}
         
 - 路径参数
 
@@ -527,7 +535,7 @@
 - 请求类型： Post
 - 请求接口
 
-    **/email/deSendEmail**
+    **/email**
     
 - 必要参数：Json格式
 
@@ -555,7 +563,7 @@
 
 - 请求接口
 
-        /publishComplaint/doPublishComplaint
+        /user/complaint
 
 - 必要参数
 
@@ -574,7 +582,7 @@
 - 请求类型：Put
 - 请求接口
 
-        /publishComplaint/doUpdateMyComplaint/{complaintId}    
+        /user/complaint/{complaintId}    
 
 - 路径参数
 
@@ -594,15 +602,20 @@
 - 请求类型：Get
 - 请求接口
 
-        /publishComplaint/doSelectMyComplaint/{userId}/{page}/{size}
+        /user/complaint/{userId}
 
 - 路径参数
 
     | 参数名        | 参数说明    |  备注  |
     | --------   | -----   | :----: |
     | userId | 用户Id    |  必填  |
+    
+- 请求参数
+
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
     | page |  当前页数    |  必填  |
-    | size | 当前页显示条数    |  必填  |
+    | size | 当前页显示条数    |  必填  |    
 
 
 1.4 用户查看小区所有的投诉建议
@@ -611,23 +624,26 @@
 
 - 请求接口
 
-        /publishComplaint/doSelectCommunityComplaint/{communityId}/{page}/{size}
+        /user/community/complaint/{communityId}
 
 - 路径参数
 
     | 参数名        | 参数说明    |  备注  |
     | --------   | -----   | :----: |
     | communityId | 小区Id    |  必填  |
+
+- 请求参数
+
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
     | page |  当前页数    |  必填  |
-    | size | 当前页显示条数    |  必填  |
-
-
+    | size | 当前页显示条数    |  必填  |   
 
 1.5 用户删除投诉建议
 - 请求类型：Delete
 - 请求接口
 
-        /publishComplaint/doDeleteMyComplaint/{complaintId}
+        /complaint/{complaintId}
 
 - 路径参数
 
@@ -641,7 +657,7 @@
 - 请求类型：Put
 - 请求接口
 
-        /respondComplaint/doRespondComplaintByComplaintId/{complaintId}           
+        /pmcAdmin/complaint/{complaintId}           
 
 - 参数类型：json
 
@@ -661,26 +677,31 @@
     
     
     
-2.2 跟进投诉建议
+2.2 查询自己跟进过的投诉建议
 - 请求类型：Get
 - 请求接口
 
-        /respondComplaint/doSelectMyRespondComplaint/{respondComplaintUserId}/{page}/{size}     
+        /pmcAdmin/complaint/{respondComplaintUserId}     
 
 - 路径参数：
 
     | 参数名        | 参数说明    |  备注  |
     | --------   | -----   | :----: |
     | respondComplaintUserId | 处理投诉跟进Id   |  必填  |
-    | page | 当前页数   |  必填  |
-    | size | 当前显示条数   |  必填  |
+
     
+ - 请求参数：
+ 
+     | 参数名        | 参数说明    |  备注  |
+     | --------   | -----   | :----: |
+     | page | 当前页数   |  必填  |
+     | size | 当前显示条数   |  必填  |
     
-2.3 跟进投诉建议
+2.3 查询还未跟进的投诉建议
 - 请求类型：Get
 - 请求接口
 
-        /respondComplaint/doSelectNoRespondComplaint/{page}/{size}         
+        /pmcAdmin/not/complaint        
 
 - 路径参数：
 
@@ -714,7 +735,7 @@
 
 - 请求接口
 
-        /repair/publishRepair
+        /user/repair
 
 - 必要参数 
 
@@ -738,7 +759,7 @@
 
 - 请求接口
 
-        /repair/deleteRepair/{repairId}
+        /user/repair/{repairId}
 
 - 必要参数
 
@@ -755,7 +776,7 @@
 
 - 请求接口
 
-        /repair/finishedRepair/{repairId}
+        /user/repair/ok/{repairId}
 
 - 必要参数
 
@@ -772,7 +793,7 @@
 
 - 请求接口
 
-        /repair/selectMyRepair/{repairUserId}/{page}/{num}
+        /user/repair/{repairUserId}
 
 - 必要参数
 
@@ -781,8 +802,13 @@
     | 参数名        | 参数说明    |  备注  |
     | --------   | -----   | :----: |
     | repairUserId | 用户Id   |  必填  |
+    
+    请求参数
+    
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
     | page | 当前页数   |  必填  |
-    | size | 当前显示条数   |  必填  |   
+    | size | 当前显示条数   |  必填  |      
 
 
 #### 维修师傅维修
@@ -793,16 +819,14 @@
 
 - 请求接口
 
-        /okRepair/selectNoRepair/{page}/{size}
+        /worker/not/repair
 
-- 必要参数
-
-    路径参数
+- 请求参数
     
     | 参数名        | 参数说明    |  备注  |
     | --------   | -----   | :----: |
-    | page | 当前页数   |  必填  |
-    | size | 当前显示条数   |  必填  |   
+    | page | 当前页数   |  非必填，默认1  |
+    | size | 当前显示条数   |  非必填，默认5  |   
 
 
 2. 接单，去维修
@@ -811,7 +835,7 @@
 
 - 请求接口
 
-        /okRepair/acceptRepair/{repairId}
+        /worker/repair/{repairId}
 
 - 必要参数
 
@@ -836,18 +860,21 @@
 
 - 请求接口
 
-        /okRepair/selectAcceptRepair/{okRepairUserId}/{page}/{size}
+        /worker/yes/repair/{okRepairUserId}
 
-- 必要参数
-
-    路径参数
+- 路径参数
     
     | 参数名        | 参数说明    |  备注  |
     | --------   | -----   | :----: |
     | okRepairUserId | 维修师傅Id   |  必填  |
-    | page | 当前页数   |  必填  |
-    | size | 当前显示条数   |  必填  |  
     
+- 请求参数
+    
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | page | 当前页数   |  非必填，默认1  |
+    | size | 当前显示条数   |  非必填，默认5  |     
+      
 ##八、用户注册及管理员审核
 ###1.用户提交注册申请
 

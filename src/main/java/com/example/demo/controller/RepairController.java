@@ -13,7 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/repair")
+@RequestMapping("/user")
 public class RepairController {
 
     @Autowired
@@ -23,14 +23,14 @@ public class RepairController {
     private UserService userService;
 
     /* 用户报修发布 */
-    @PostMapping("/publishRepair")
+    @PostMapping("/repair")
     public ResultDTO doPublishRepair(@RequestBody Repair repair){
         ResultDTO resultDTO = repairService.publishRepair(repair);
         return resultDTO;
     }
 
     /* 用户报修删除 */
-    @DeleteMapping("/deleteRepair/{repairId}")
+    @DeleteMapping("/repair/{repairId}")
     public ResultDTO doDeleteRepair(@PathVariable("repairId") Integer repairId){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -46,7 +46,7 @@ public class RepairController {
     }
 
     /* 完成维修后用户修改状态 */
-    @PutMapping("/finishedRepair/{repairId}")
+    @PutMapping("/repair/ok/{repairId}")
     public ResultDTO repairFinish(@PathVariable("repairId") Integer repairId){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -62,11 +62,11 @@ public class RepairController {
     }
 
     /* 查看自己所有的报修记录 */
-    @GetMapping("/selectMyRepair/{repairUserId}/{page}/{num}")
+    @GetMapping("/repair/{repairUserId}")
     public ResultDTO selectMyRepair(@PathVariable("repairUserId") Integer repairUserId,
-                                    @PathVariable("page") Integer page,
-                                    @PathVariable("num") Integer num){
-        ResultDTO resultDTO = repairService.doSelectMyRepair(repairUserId, page, num);
+                                    @RequestParam(name = "page",defaultValue = "1") Integer page,
+                                    @RequestParam(name = "size",defaultValue = "5") Integer size){
+        ResultDTO resultDTO = repairService.doSelectMyRepair(repairUserId, page-1, size);
         return resultDTO;
     }
 

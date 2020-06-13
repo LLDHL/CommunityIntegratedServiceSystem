@@ -56,6 +56,5 @@ public interface TieDao {
     @Update("update tie set likes = #{likes} where tieId = #{tieId}")
     void likeTie(Integer likes,Integer tieId);
 
-    @Select("select * from repair where userId = #{userId}")
-    Tie findTieByUserId(Integer userId);
+
 }

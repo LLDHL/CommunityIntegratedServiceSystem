@@ -62,4 +62,9 @@ public class RepairService {
             return false;
         }
     }
+
+    public Repair findByUserId(Integer userId) {
+        Repair repair = repairDao.findRepairByRepairId(userId);
+        return repair;
+    }
 }

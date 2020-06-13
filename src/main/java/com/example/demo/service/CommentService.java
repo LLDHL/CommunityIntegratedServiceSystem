@@ -57,4 +57,14 @@ public class CommentService {
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("取消点赞成功");
     }
+
+    public Comment selectCommentByReplyCommentId(Integer replyCommentId) {
+        Comment comment = commentDao.selectCommentByReplyCommentId(replyCommentId);
+        return comment;
+    }
+
+    public Comment selectByComplaintId(Integer complaintId) {
+        Comment comment = commentDao.selectOneComment(complaintId);
+        return comment;
+    }
 }

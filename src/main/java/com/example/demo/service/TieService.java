@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.dao.TieDao;
 import com.example.demo.dto.ResultDTO;
-import com.example.demo.model.Repair;
 import com.example.demo.model.Tie;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -104,5 +103,10 @@ public class TieService {
         }else{
             return false;
         }
+    }
+
+    public Tie selectByTieId(Integer tieId) {
+        Tie tie = tieDao.selectOneTie(tieId);
+        return tie;
     }
 }

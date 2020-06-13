@@ -32,4 +32,8 @@ public interface CommentDao {
 
     @Update("Update comment set commentLikes = #{commentLikes} where commentId = #{commentId}")
     void updateCommentLikes(Integer commentId,Integer commentLikes);
+
+    @Select("Select * from comment where commentId = #{replyCommentId}")
+    Comment selectCommentByReplyCommentId(Integer replyCommentId);
+
 }

@@ -28,6 +28,7 @@ public class NotificationController {
 
     @GetMapping("/user/notification")
     public ResultDTO<List<Notification>> getAllNotice(HttpServletRequest request) {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();//当前登录的用户名
         Integer userId = userService.getUserId(username);

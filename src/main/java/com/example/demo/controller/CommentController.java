@@ -4,18 +4,22 @@ import com.example.demo.dto.ResultDTO;
 import com.example.demo.model.Comment;
 import com.example.demo.model.SecondComment;
 import com.example.demo.model.Tie;
-import com.example.demo.service.CommentService;
-import com.example.demo.service.SecondCommentService;
+import com.example.demo.service.*;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.Result;
+import java.security.Principal;
+
+import static com.example.demo.myenum.noticeEnum.NoticeCode.COMMENT_NOTICE;
 
 @RestController
-@RequestMapping("/comment")
+@RequestMapping("/user")
 public class CommentController {
 
     @Autowired
@@ -24,50 +28,87 @@ public class CommentController {
     @Autowired
     private SecondCommentService secondCommentService;
 
+    @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
+    private TieService tieService;
+
+    @Autowired
+    private UserService userService;
+
     /* 发表一级评论 */
-    @PostMapping("/doPublishComment")
+    @PostMapping("/first/comment")
     public ResultDTO doPublishComment(@RequestBody Comment comment){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();//当前登录的用户名
+        Integer userId = userService.getUserId(username);
+
+        Tie tie = tieService.selectByTieId(comment.getTieId());
+        Integer receiverId = tie.getUserId();
+
+        notificationService.sendNotification(
+                userId,
+                receiverId,
+                COMMENT_NOTICE,
+                username +"评论了你" + tie.getContent());
+
         ResultDTO resultDTO = commentService.doPublishComment(comment);
         return resultDTO;
     }
 
     /* 查看一级评论 */
-    @GetMapping("selectTieComment/{tieId}")
+    @GetMapping("/first/comment/{tieId}")
     public ResultDTO doSelectTieComment(@PathVariable("tieId") Integer tieId){
         ResultDTO resultDTO = commentService.selectTeiComment(tieId);
         return resultDTO;
     }
 
     /* 删除一级评论,二级评论 */
-    @DeleteMapping("deleteTieComment/{commentId}")
+    @DeleteMapping("/comment/{commentId}")
     public ResultDTO deDeleteTieComment(@PathVariable("commentId") Integer commentId){
         ResultDTO resultDTO = commentService.deleteTieComment(commentId);
         return resultDTO;
     }
 
     /*发布二级评论*/
-    @PostMapping("/doPublishSecondComment")
-    public ResultDTO doPublishSecondComment(@RequestBody SecondComment secondComment){
+    @PostMapping("/second/comment")
+    public ResultDTO doPublishSecondComment(@RequestBody SecondComment secondComment,HttpServletRequest request){
+
+        Authentication authentications = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentications.getName();//当前登录的用户名
+        Integer userId = userService.getUserId(username);
+
+        Integer replyCommentId = secondComment.getReplyCommentId();
+        Comment comment = commentService.selectCommentByReplyCommentId(replyCommentId);
+
+        notificationService.sendNotification(
+                userId,
+                comment.getCommentUserId(),
+                COMMENT_NOTICE,
+                username +"评论了你" + comment.getCommentContent());
+
         ResultDTO resultDTO = secondCommentService.doPublishSecondComment(secondComment);
         return resultDTO;
     }
 
     /* 查询一条评论的二级评论 */
-    @GetMapping("/selectSecondComment/{replyCommentId}")
+    @GetMapping("/second/comment/{replyCommentId}")
     public ResultDTO doSelectSecondComment(@PathVariable("replyCommentId") Integer replyCommentId){
         ResultDTO resultDTO = secondCommentService.doSelectSecondComment(replyCommentId);
         return resultDTO;
     }
 
     /* 点赞一级评论 */
-    @PutMapping("/likeComment/{commentId}")
+    @PutMapping("/like/comment/{commentId}")
     public ResultDTO doLikeComment(@PathVariable("commentId") Integer commentId) {
         ResultDTO resultDTO = commentService.likeComment(commentId);
         return resultDTO;
     }
 
     /* 取消点赞一级评论 */
-    @PutMapping("/notLikeComment/{commentId}")
+    @PutMapping("/notLike/comment/{commentId}")
     public ResultDTO doNotLikeComment(@PathVariable("commentId") Integer commentId) {
         ResultDTO resultDTO = commentService.notLikeComment(commentId);
         return resultDTO;
