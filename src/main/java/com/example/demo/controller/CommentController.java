@@ -5,16 +5,12 @@ import com.example.demo.model.Comment;
 import com.example.demo.model.SecondComment;
 import com.example.demo.model.Tie;
 import com.example.demo.service.*;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.transform.Result;
-import java.security.Principal;
+
 
 import static com.example.demo.myenum.noticeEnum.NoticeCode.COMMENT_NOTICE;
 
@@ -52,7 +48,7 @@ public class CommentController {
                 userId,
                 receiverId,
                 COMMENT_NOTICE,
-                username +"评论了你" + tie.getContent());
+                username +"评论了你：" + tie.getContent());
 
         ResultDTO resultDTO = commentService.doPublishComment(comment);
         return resultDTO;
@@ -87,7 +83,7 @@ public class CommentController {
                 userId,
                 comment.getCommentUserId(),
                 COMMENT_NOTICE,
-                username +"评论了你" + comment.getCommentContent());
+                username +"评论了你：" + comment.getCommentContent());
 
         ResultDTO resultDTO = secondCommentService.doPublishSecondComment(secondComment);
         return resultDTO;
