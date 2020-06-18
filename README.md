@@ -1,5 +1,5 @@
 ## 一、登录流程：
-1.调用接口："/validateCodeImg" 获得验证码
+1.调用接口："/guest/validateCodeImg" 获得验证码
 
 2.调用接口："/login" post方式提交json
 - 登录示例：
@@ -998,19 +998,19 @@
 
 - Get接口 userId为当前用户id
 
-        / user / allNotice / {userId}
+        /user/notification
 
 ###2.删除指定通知
 
 - Delete接口 noticeId为通知id
 
-        / user / deleteNotice / {noticeId}
+        /user/notification/{noticeId}
 
 ###3.标记通知已读
 
-- Get接口 noticeId为通知id
+- Put接口 noticeId为通知id
 
-       / user / noticeRead / {noticeId}
+       /user/notification/{noticeId}
 
 
 

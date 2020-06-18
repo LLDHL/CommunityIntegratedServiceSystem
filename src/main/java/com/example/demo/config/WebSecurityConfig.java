@@ -75,12 +75,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v2/api-docs", "/configuration/ui", "/swagger-resources",
                         "/configuration/security", "/swagger-ui.html", "/webjars/**",
                         "/swagger-resources/configuration/ui","/swagge‌​r-ui.html").permitAll()//所有人都能访问登录页面
-//                .antMatchers("/tie/**","/comment/**","/user/**").hasAnyRole("user","admin","pmcAdmin")//发帖回帖限制
+//                .antMatchers("/user/**").hasAnyRole("user","admin","pmcAdmin")//发帖回帖限制
 //                .antMatchers("/admin/**","/email/**").hasAnyRole("admin")//管理员接口限制
+//                .antMatchers("/work/**").hasAnyRole("admin","worker","pmcAdmin")//工人接口限制
+//                .antMatchers("/pmcAdmin/**").hasAnyRole("admin","pmcAdmin")//管理员接口限制
 
                 .anyRequest().authenticated()//每个请求都必须被认证
                 .and()
-                    .formLogin().loginPage("/login_page")
+                    .formLogin()
+//                    .loginPage("/login_page")
                     .successHandler(new ApiLoginSuccessHandler())
                     .failureHandler(new ApiLoginFailureHandler())
                 .loginProcessingUrl("/login")//接口地址
