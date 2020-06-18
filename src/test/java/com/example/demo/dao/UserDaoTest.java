@@ -39,7 +39,7 @@ class UserDaoTest {
 
     @Test
     void findUserByUserName() {
-        userDao.findUserByUserName("插入测试");
+//        userDao.findUserByUserName("插入测试");
     }
 
     @Test
