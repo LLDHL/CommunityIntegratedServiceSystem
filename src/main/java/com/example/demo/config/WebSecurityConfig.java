@@ -10,6 +10,7 @@ import com.example.demo.exception.CustomErrorCode;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
@@ -29,12 +30,17 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.Duration;
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -79,7 +85,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/admin/**","/email/**").hasAnyRole("admin")//管理员接口限制
 //                .antMatchers("/work/**").hasAnyRole("admin","worker","pmcAdmin")//工人接口限制
 //                .antMatchers("/pmcAdmin/**").hasAnyRole("admin","pmcAdmin")//管理员接口限制
-
                 .anyRequest().authenticated()//每个请求都必须被认证
                 .and()
                     .formLogin()
@@ -154,4 +159,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             out.close();
         }
     }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setMaxAge(Duration.ofHours(1));
+        source.registerCorsConfiguration("/**",configuration);
+        return source;
+    }
+
+//    @Bean
+//    CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.setAllowedOrigins(Arrays.asList("*"));
+//        configuration.setAllowedMethods(Arrays.asList("*"));
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration);
+//        return source;
+//    }
 }
