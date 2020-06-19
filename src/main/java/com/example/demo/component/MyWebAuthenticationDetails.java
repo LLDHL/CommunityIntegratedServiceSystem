@@ -64,5 +64,6 @@ public class MyWebAuthenticationDetails extends WebAuthenticationDetails {
 
         sessionCodeValue = (String) request.getSession().getAttribute("codeValue");
         sessionCodeTime = (Long) request.getSession().getAttribute("codeTime");
+        System.out.println("sessionCodeTime的值为："+sessionCodeTime);
     }
 }

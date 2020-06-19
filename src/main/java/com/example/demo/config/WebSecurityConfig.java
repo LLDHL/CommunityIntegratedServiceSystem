@@ -88,7 +88,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()//每个请求都必须被认证
                 .and()
                     .formLogin()
-//                    .loginPage("/login_page")
                     .successHandler(new ApiLoginSuccessHandler())
                     .failureHandler(new ApiLoginFailureHandler())
                 .loginProcessingUrl("/login")//接口地址

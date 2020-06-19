@@ -33,7 +33,7 @@ public class UserController {
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @RequestMapping(value = "/guest/validateCodeImg", method = RequestMethod.GET)
-    public ResultDTO<String> downloadWCImage(HttpServletResponse response, HttpServletRequest request) {
+    public void downloadWCImage(HttpServletResponse response, HttpServletRequest request) {
         response.setContentType("image/jpeg");// 设置相应类型,告诉浏览器输出的内容为图片
         response.setHeader("Pragma", "No-cache");// 设置响应头信息，告诉浏览器不要缓存此内容
         response.setHeader("Cache-Control", "no-cache");
@@ -45,8 +45,7 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//   https://blog.csdn.net/u010648555/article/details/52261050em.out.println("success");
-        return ResultDTO.okOf("验证码获取成功");
+//   https://blog.csdn.net/u010648555/article/details/52261050
     }
 
     @PostMapping("/guest/register")

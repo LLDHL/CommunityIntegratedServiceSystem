@@ -102,7 +102,8 @@ public class RandomValidateCode {
 //        //2：将随机生成的验证码放入session中
 //        String sessionid = request.getSession().getId();
 //        request.getSession().setAttribute(sessionid+key, randomString);
-        request.getSession().setAttribute("codeValue", randomString);
+
+        request.getSession().setAttribute("codeValue", randomString.toLowerCase());
         request.getSession().setAttribute("codeTime", (new Date()).getTime());
         System.out.println("*************" + randomString);
 
