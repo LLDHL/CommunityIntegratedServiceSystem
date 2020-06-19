@@ -64,12 +64,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(new UnauthorizedEntryPoint())
                 .and()
                 .csrf().disable()//关闭对跨域请求的限制
+                .cors()
+                .and()
                 .authorizeRequests()
                 .antMatchers("/guest/**",
                         // 测试用，以后删
-                        "/tie/**","/email/**","/comment/**","/publishComplaint/**",
-                        "/respondComplaint/**","/repair/**","/okRepair/**","/picture/**",
-                        "/user/**","/**/**",
+                        "/**/**",
 
                         //下为swagger的页面
                         "/v2/api-docs", "/configuration/ui", "/swagger-resources",
