@@ -1012,8 +1012,72 @@
 
        /user/notification/{noticeId}
 
+## 十、用户信息
 
-## 十、新闻插件
+###1.更新用户信息
+
+- Put接口 userid、userName、communityId不可更改 需要传入密码方可更改信息
+        
+        /user/userInfo
+
+- 参数示例 
+
+        {
+                "id": 4,
+                "name": "username",
+                "password": "name",
+                "sex": null,
+                "tel": null,
+                "email": null,
+                "headUrl": null,
+                "communityId": null,
+                "address": "密码是name加密，改这里了",
+                "role": "admin"
+        }
+
+- 必要参数
+
+    参数解读
+    
+    | 参数名        | 参数说明    |  备注  |
+    | --------   | -----   | :----: |
+    | address | 具体住址   |  必填  |
+    | communityId | 不可更改   |  必填  |
+    | email | 邮箱   |  必填  |  
+    | headUrl | 头像url   |    |  
+    | id | 不可更改   |  必填  |  
+    | name | 不可更改   |  必填  |  
+    | password | 用户密码   |  必填  |  
+    | role | 不可更改   |  必填  |  
+    | sex | 性别   |  必填  |  
+    | tel | 联系电话   |  必填  |   
+
+###2.获取用户信息
+
+- Get 接口 接口不返回密码
+
+        /user/userInfo
+
+- 示例结果
+
+        {
+            "code": 200,
+            "message": "用户信息",
+            "data": {
+                "id": 4,
+                "name": "username",
+                "password": "",
+                "sex": null,
+                "tel": null,
+                "email": null,
+                "headUrl": null,
+                "communityId": null,
+                "address": "密码是name加密",
+                "role": "admin"
+            }
+        }
+
+## 十一、新闻插件
 1.接口地址：http://120.79.242.138/api/news
 
 2.请求类型：POST
@@ -1056,7 +1120,7 @@
         }
     ]
 }
-    ```
+```
 
 
 

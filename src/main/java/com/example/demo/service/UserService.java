@@ -62,7 +62,12 @@ public class UserService {
         return userDao.findUserByUserName(userName).getId();
     }
 
-    public void handler(){
-        //测试1
+    public User getUserInfo(Integer id){
+        User userByUserId = userDao.findUserByUserId(id);
+        return userByUserId;
+    }
+
+    public void updateUserInfo(User user){
+        userDao.updateUser(user);
     }
 }
