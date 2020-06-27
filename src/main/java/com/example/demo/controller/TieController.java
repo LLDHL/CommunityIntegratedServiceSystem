@@ -10,6 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+
+
 @RestController
 @RequestMapping("/user")
 public class TieController {
@@ -70,7 +72,7 @@ public class TieController {
     @GetMapping("/ties")
     public ResultDTO deSelectAllTie2(@RequestParam(name = "page", defaultValue = "1") Integer page,
                                      @RequestParam(name = "size", defaultValue = "5") Integer size){
-        ResultDTO resultDTO = tieService.selectAllTie(page-1, size);
+        ResultDTO resultDTO = tieService.selectAllTie(page, size);
         return resultDTO;
     }
 
@@ -79,7 +81,7 @@ public class TieController {
     public ResultDTO doSelectPersonTie(@PathVariable("userId") Integer userId,
                                        @RequestParam(name = "page", defaultValue = "1") Integer page,
                                        @RequestParam(name = "size",defaultValue = "5") Integer size){
-        ResultDTO resultDTO = tieService.selectPersonTie(userId, page-1, size);
+        ResultDTO resultDTO = tieService.selectPersonTie(userId, page, size);
         return resultDTO;
     }
 
@@ -95,7 +97,7 @@ public class TieController {
     public ResultDTO doSelectCommunityTie(@RequestParam(name = "communityId") Integer communityId,
                                           @RequestParam(name = "page",defaultValue = "1") Integer page,
                                           @RequestParam(name = "size",defaultValue = "5") Integer size){
-        ResultDTO resultDTO = tieService.selectCommunityTie(communityId, page-1, size);
+        ResultDTO resultDTO = tieService.selectCommunityTie(communityId, page, size);
         return resultDTO;
     }
 
@@ -112,4 +114,6 @@ public class TieController {
         ResultDTO resultDTO = tieService.NotLikeTie(tieId);
         return resultDTO;
     }
+
+
 }

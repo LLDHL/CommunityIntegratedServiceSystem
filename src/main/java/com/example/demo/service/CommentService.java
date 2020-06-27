@@ -3,19 +3,37 @@ package com.example.demo.service;
 import com.example.demo.dao.CommentDao;
 import com.example.demo.dto.ResultDTO;
 import com.example.demo.model.Comment;
+import com.example.demo.model.SecondComment;
+import com.example.demo.model.Tie;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import static com.example.demo.myenum.noticeEnum.NoticeCode.COMMENT_NOTICE;
+
 @Service
 public class CommentService {
 
     @Autowired
     private CommentDao commentDao;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private TieService tieService;
+
+    @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
+    private CommentService commentService;
 
     public ResultDTO doPublishComment(Comment comment){
         /*获取当前时间*/
@@ -67,4 +85,5 @@ public class CommentService {
         Comment comment = commentDao.selectOneComment(complaintId);
         return comment;
     }
+
 }

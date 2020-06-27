@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/user")
 public class RepairController {
@@ -66,7 +67,7 @@ public class RepairController {
     public ResultDTO selectMyRepair(@PathVariable("repairUserId") Integer repairUserId,
                                     @RequestParam(name = "page",defaultValue = "1") Integer page,
                                     @RequestParam(name = "size",defaultValue = "5") Integer size){
-        ResultDTO resultDTO = repairService.doSelectMyRepair(repairUserId, page-1, size);
+        ResultDTO resultDTO = repairService.doSelectMyRepair(repairUserId, page, size);
         return resultDTO;
     }
 

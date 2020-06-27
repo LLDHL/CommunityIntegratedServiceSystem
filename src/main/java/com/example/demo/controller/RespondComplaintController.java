@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static com.example.demo.myenum.noticeEnum.NoticeCode.COMMENT_NOTICE;
 
+
 @RestController
 @RequestMapping("/pmcAdmin")
 public class RespondComplaintController {
@@ -58,7 +59,7 @@ public class RespondComplaintController {
     public ResultDTO doSelectMyRespondComplaint(@PathVariable("respondComplaintUserId") Integer respondComplaintUserId,
                                                 @RequestParam(name = "page",defaultValue = "1") Integer page,
                                                 @RequestParam(name = "size",defaultValue = "5") Integer size){
-        ResultDTO resultDTO = respondComplaintService.selectMyRespondComplaint(respondComplaintUserId, page-1, size);
+        ResultDTO resultDTO = respondComplaintService.selectMyRespondComplaint(respondComplaintUserId, page, size);
         return resultDTO;
     }
 
@@ -66,7 +67,7 @@ public class RespondComplaintController {
     @GetMapping("/not/complaint")
     public ResultDTO doSelectNoRespondComplaint( @RequestParam(name = "page",defaultValue = "1") Integer page,
                                                  @RequestParam(name = "size",defaultValue = "5") Integer size){
-        ResultDTO resultDTO = respondComplaintService.selectNoRespondComplaint(page-1,size);
+        ResultDTO resultDTO = respondComplaintService.selectNoRespondComplaint(page,size);
         return resultDTO;
     }
 }

@@ -23,8 +23,8 @@ public class PictureService {
             //防止图片名字重复
             String resultName = hToken + fileName ;
             // 地址改成服务器地址就ok了
-            String filePath = "F:\\IDEA\\Spring_Boot\\CommunityIntegratedServiceSystem\\src\\main\\resources\\picture\\";
-            //String filePath = "http:\\www.nizhongyi.cn\\picture\\head\\";
+            //String filePath = "F:\\IDEA\\Spring_Boot\\CommunityIntegratedServiceSystem\\src\\main\\resources\\picture\\";
+            String filePath = "http:\\www.nizhongyi.cn\\picture\\head\\";
             // 图片的路径 = 文件夹地址 + 新名字
             String fileAddress = filePath + resultName;
             try{

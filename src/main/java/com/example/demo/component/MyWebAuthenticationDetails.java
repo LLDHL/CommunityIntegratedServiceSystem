@@ -4,8 +4,6 @@ import com.alibaba.fastjson.JSON;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import javax.servlet.ServletInputStream;
@@ -25,8 +23,6 @@ public class MyWebAuthenticationDetails extends WebAuthenticationDetails {
      *
      * @param request that the authentication request was received from
      */
-
-    protected Log log = LogFactory.getLog(this.getClass());
 
     private static final long serialVersionUID = 6975601077710753878L;
 
@@ -67,7 +63,6 @@ public class MyWebAuthenticationDetails extends WebAuthenticationDetails {
 //        request.getSession().setAttribute("codeTime", codeTime);
 
         sessionCodeValue = (String) request.getSession().getAttribute("codeValue");
-        sessionCodeTime = (long) request.getSession().getAttribute("codeTime");
-        log.info("sessionCodeTime的值为："+sessionCodeTime);
+        sessionCodeTime = (Long) request.getSession().getAttribute("codeTime");
     }
 }

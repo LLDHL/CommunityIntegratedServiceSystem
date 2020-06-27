@@ -45,7 +45,7 @@ public class TieService {
 
     /* 查询全部帖子操作 */
     public ResultDTO selectAllTie(Integer page, Integer size){
-        PageHelper.offsetPage(page,size);
+        PageHelper.startPage(page,size);
         List<Tie> ties = tieDao.selectAllTie();
         PageInfo pageInfo = new PageInfo(ties);
         ResultDTO resultDTO = new ResultDTO();
@@ -54,7 +54,7 @@ public class TieService {
 
     /* 查询个人的所有帖子 */
     public ResultDTO selectPersonTie(Integer userId, Integer page, Integer size) {
-        PageHelper.offsetPage(page,size);
+        PageHelper.startPage(page,size);
         List<Tie> ties = tieDao.selectPersonTie(userId);
         PageInfo pageInfo = new PageInfo(ties);
         ResultDTO resultDTO = new ResultDTO();
@@ -72,7 +72,7 @@ public class TieService {
 
     /*查询小区的帖子*/
     public ResultDTO selectCommunityTie(Integer communityId, Integer page, Integer size) {
-        PageHelper.offsetPage(page,size);
+        PageHelper.startPage(page,size);
         List<Tie> ties = tieDao.selectCommunityTie(communityId);
         PageInfo pageInfo = new PageInfo(ties);
         ResultDTO resultDTO = new ResultDTO();
@@ -105,8 +105,11 @@ public class TieService {
         }
     }
 
+
     public Tie selectByTieId(Integer tieId) {
         Tie tie = tieDao.selectOneTie(tieId);
         return tie;
     }
+
+
 }

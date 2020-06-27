@@ -17,6 +17,7 @@ import java.util.List;
 
 import static com.example.demo.exception.CustomErrorCode.NOT_AUTHORITY;
 
+
 @RestController
 public class NotificationController {
 

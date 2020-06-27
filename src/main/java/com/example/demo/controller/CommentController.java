@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import static com.example.demo.myenum.noticeEnum.NoticeCode.COMMENT_NOTICE;
 
-@RestController
+
 @RequestMapping("/user")
 public class CommentController {
 
@@ -43,7 +43,6 @@ public class CommentController {
 
         Tie tie = tieService.selectByTieId(comment.getTieId());
         Integer receiverId = tie.getUserId();
-
         notificationService.sendNotification(
                 userId,
                 receiverId,
@@ -71,20 +70,16 @@ public class CommentController {
     /*发布二级评论*/
     @PostMapping("/second/comment")
     public ResultDTO doPublishSecondComment(@RequestBody SecondComment secondComment,HttpServletRequest request){
-
         Authentication authentications = SecurityContextHolder.getContext().getAuthentication();
         String username = authentications.getName();//当前登录的用户名
         Integer userId = userService.getUserId(username);
-
         Integer replyCommentId = secondComment.getReplyCommentId();
         Comment comment = commentService.selectCommentByReplyCommentId(replyCommentId);
-
         notificationService.sendNotification(
                 userId,
                 comment.getCommentUserId(),
                 COMMENT_NOTICE,
                 username +"评论了你：" + comment.getCommentContent());
-
         ResultDTO resultDTO = secondCommentService.doPublishSecondComment(secondComment);
         return resultDTO;
     }

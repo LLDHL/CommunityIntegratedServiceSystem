@@ -6,6 +6,7 @@ import com.example.demo.service.PublishComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/user")
 public class PublishComplaintController {
@@ -26,7 +27,7 @@ public class PublishComplaintController {
                                        @RequestParam(name = "page",defaultValue = "1") Integer page,
                                        @RequestParam(name = "size",defaultValue = "5") Integer size
                                        ){
-        ResultDTO resultDTO = publishComplaintService.selectMyComplaint(userId, page-1, size);
+        ResultDTO resultDTO = publishComplaintService.selectMyComplaint(userId, page, size);
         return resultDTO;
     }
 
@@ -35,7 +36,7 @@ public class PublishComplaintController {
     public ResultDTO doSelectCommunityComplaint(@PathVariable("communityId") Integer communityId,
                                                 @RequestParam(name = "page",defaultValue = "1") Integer page,
                                                 @RequestParam(name = "size",defaultValue = "5") Integer size){
-        ResultDTO resultDTO = publishComplaintService.selectCommunityComplaint(communityId, page-1, size);
+        ResultDTO resultDTO = publishComplaintService.selectCommunityComplaint(communityId, page, size);
         return resultDTO;
     }
 

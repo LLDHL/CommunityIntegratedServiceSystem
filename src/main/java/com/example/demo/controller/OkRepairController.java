@@ -18,6 +18,7 @@ import java.util.Date;
 
 import static com.example.demo.myenum.noticeEnum.NoticeCode.COMMENT_NOTICE;
 
+
 @RestController
 @RequestMapping("/worker")
 public class OkRepairController {
@@ -40,7 +41,7 @@ public class OkRepairController {
     @GetMapping("/not/repair")
     public ResultDTO doSelectNoRepair(@RequestParam(name = "page",defaultValue = "1") Integer page,
                                       @RequestParam(name = "size",defaultValue = "5") Integer size){
-        ResultDTO resultDTO = okRepairServer.doSelectNoRepair(page-1, size);
+        ResultDTO resultDTO = okRepairServer.doSelectNoRepair(page, size);
         return resultDTO;
     }
 
@@ -77,7 +78,7 @@ public class OkRepairController {
                                           @RequestParam(name = "page",defaultValue = "1") Integer page,
                                           @RequestParam(name = "size",defaultValue = "5") Integer size){
 
-        ResultDTO resultDTO = okRepairServer.doSelectAcceptRepair(okRepairUserId, page-1, size);
+        ResultDTO resultDTO = okRepairServer.doSelectAcceptRepair(okRepairUserId, page, size);
         return resultDTO;
     }
 }

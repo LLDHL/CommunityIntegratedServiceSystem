@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RegisterImageUtils {
+
     @Value("${win_registerImageDir}")
     private String win_registerImageDir;
 

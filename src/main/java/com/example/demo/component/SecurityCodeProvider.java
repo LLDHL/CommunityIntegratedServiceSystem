@@ -33,13 +33,26 @@ public class SecurityCodeProvider implements AuthenticationProvider {
 
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
+    /**
+     * Performs authentication with the same contract as
+     * {@link AuthenticationManager#authenticate(Authentication)}
+     * .
+     *
+     * @param authentication the authentication request object.
+     * @return a fully authenticated object including credentials. May return
+     * <code>null</code> if the <code>AuthenticationProvider</code> is unable to support
+     * authentication of the passed <code>Authentication</code> object. In such a case,
+     * the next <code>AuthenticationProvider</code> that supports the presented
+     * <code>Authentication</code> class will be tried.
+     * @throws AuthenticationException if authentication fails.
+     */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         log.info("now start custom authenticate process!");
         MyWebAuthenticationDetails details = (MyWebAuthenticationDetails) authentication.getDetails();
 
-        //验证码判断 把验证码转小写
-        if (!details.getValidCode().toLowerCase().equals(details.getSessionCodeValue())) {
+        //校验码判断
+        if (!details.getValidCode().equals(details.getSessionCodeValue())) {
             log.info("验证码错误");
             throw new BadCredentialsException("验证码错误");
         }
