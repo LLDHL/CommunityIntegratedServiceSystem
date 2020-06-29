@@ -45,6 +45,11 @@ public class RespondComplaintService {
         PageInfo pageInfo = new PageInfo(complaints);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("未处理的投诉建议获取成功",pageInfo);
+    }
 
+
+    public Complaint selectByComplaintId(Integer complaintId) {
+        Complaint respondComplaint = respondComplaintDao.selectByComplaintId(complaintId);
+        return respondComplaint;
     }
 }

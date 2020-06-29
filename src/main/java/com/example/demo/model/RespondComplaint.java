@@ -3,7 +3,7 @@ package com.example.demo.model;
 import lombok.Data;
 
 @Data
-public class RespondComplaint {
+public class RespondComplaint extends Complaint {
 
     private Integer complaintId;
     private Integer respondComplaintUserId;

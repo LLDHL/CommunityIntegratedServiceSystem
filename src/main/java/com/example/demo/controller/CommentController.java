@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import static com.example.demo.myenum.noticeEnum.NoticeCode.COMMENT_NOTICE;
 
-
+@RestController
 @RequestMapping("/user")
 public class CommentController {
 
@@ -55,7 +55,7 @@ public class CommentController {
 
     /* 查看一级评论 */
     @GetMapping("/first/comment/{tieId}")
-    public ResultDTO doSelectTieComment(@PathVariable("tieId") Integer tieId){
+    public ResultDTO tieComment(@PathVariable("tieId") Integer tieId){
         ResultDTO resultDTO = commentService.selectTeiComment(tieId);
         return resultDTO;
     }

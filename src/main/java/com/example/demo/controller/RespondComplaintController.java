@@ -1,9 +1,10 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.dao.TieDao;
 import com.example.demo.dto.ResultDTO;
 import com.example.demo.model.Comment;
-import com.example.demo.model.Repair;
+import com.example.demo.model.Complaint;
 import com.example.demo.model.RespondComplaint;
 import com.example.demo.service.CommentService;
 import com.example.demo.service.NotificationService;
@@ -33,6 +34,9 @@ public class RespondComplaintController {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired
+    private TieDao tieDao;
+
     /* 跟进投诉建议 */
     @PutMapping("/complaint/{complaintId}")
     public ResultDTO doRespondComplaintByComplaintId(@PathVariable("complaintId") Integer complaintId,
@@ -41,16 +45,14 @@ public class RespondComplaintController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();//当前登录的用户名
         Integer userId = userService.getUserId(username);
-
-        Comment comment = commentService.selectByComplaintId(complaintId);
-
+        Complaint result = respondComplaintService.selectByComplaintId(complaintId);
         notificationService.sendNotification(
                 userId,
-                comment.getCommentUserId(),
+                result.getUserId(),
                 COMMENT_NOTICE,
                 username + "已经收到您的投诉建议，请等待联系");
 
-        ResultDTO resultDTO = respondComplaintService.respondComplainByComplaintId(respondComplaint, complaintId);
+        ResultDTO resultDTO = respondComplaintService.respondComplainByComplaintId(respondComplaint,complaintId);
         return resultDTO;
     }
 

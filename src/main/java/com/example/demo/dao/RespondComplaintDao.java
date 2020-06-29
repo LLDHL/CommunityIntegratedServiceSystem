@@ -31,4 +31,6 @@ public interface RespondComplaintDao {
     @Select("select * from complaint where respondComplaintUserId is null")
     List<Complaint> selectNoRespondComplaint();
 
+    @Select("select * from complaint where complaintId = #{complaintId}")
+    Complaint selectByComplaintId(Integer complaintId);
 }

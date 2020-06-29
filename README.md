@@ -643,7 +643,7 @@
 - 请求类型：Delete
 - 请求接口
 
-        /complaint/{complaintId}
+        /user/complaint/{complaintId}
 
 - 路径参数
 

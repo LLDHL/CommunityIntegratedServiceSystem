@@ -2,6 +2,7 @@ package com.example.demo.dao;
 
 import com.example.demo.model.Repair;
 import com.example.demo.model.Tie;
+import com.example.demo.model.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -56,5 +57,7 @@ public interface TieDao {
     @Update("update tie set likes = #{likes} where tieId = #{tieId}")
     void likeTie(Integer likes,Integer tieId);
 
+    @Select("select * from user where name = #{username}")
+    User selectByUsername(String username);
 
 }
