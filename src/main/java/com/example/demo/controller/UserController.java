@@ -55,6 +55,8 @@ public class UserController {
             return ResultDTO.errorOf(CustomErrorCode.PASSWORD_WRONG);
         }
 
+        String password=newUserInfo.getPassword();
+        newUserInfo.setPassword(bCryptPasswordEncoder.encode(password));
         userService.updateUserInfo(newUserInfo);
         return ResultDTO.okOf();
     }
