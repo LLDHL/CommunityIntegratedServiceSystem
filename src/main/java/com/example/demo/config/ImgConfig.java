@@ -9,8 +9,9 @@ public class ImgConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // 暂时用不上，部署了再用
          registry.addResourceHandler("/static/picture/**")
-                 .addResourceLocations("file:" + "C:\\Users\\Administrator\\Desktop\\head\\");
+                 .addResourceLocations("file:" + "C:\\Users\\Administrator\\Desktop\\img\\");
+//                 .addResourceLocations("file:" + "C:\\Users\\Lzy\\Desktop\\img\\");
     }
+
 }

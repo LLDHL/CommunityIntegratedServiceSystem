@@ -77,7 +77,7 @@ public class TieController {
     }
 
     /*  查看个人所有帖子 */
-    @GetMapping("/users/ties/{userId}")
+    @GetMapping("/only/ties/{userId}")
     public ResultDTO doSelectPersonTie(@PathVariable("userId") Integer userId,
                                        @RequestParam(name = "page", defaultValue = "1") Integer page,
                                        @RequestParam(name = "size",defaultValue = "5") Integer size){

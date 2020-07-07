@@ -32,7 +32,7 @@
     | content        | 内容      |   必填    |
     | label        | 标签      |   必填    |
     | publishTime        | 发帖时间      |   null    |
-    | pictureAddress        | 图片地址      |   可以为空    |
+    | picture       | 图片地址      |   可以为空    |
     | tieTypes        | 帖子类型      |   0或1    |
     
 - 发帖示例
@@ -46,7 +46,7 @@
     	"content":"123",
     	"label":"标签1,标签2",
     	"publishTime":"null",
-    	"pictureAddress":"D://a.jpg",
+    	"picture":"D://a.jpg",
     	"tieTypes":"1"
     }
     ```
@@ -181,7 +181,7 @@
 - 请求方式：Get
 - 接口
 
-	    /user/ties/{userId}
+	    /user/only/ties/{userId}
 	
 	路径参数
 	
@@ -654,7 +654,7 @@
 2. 物业方：投诉建议
 
 2.1 跟进投诉建议
-- 请求类型：Put
+- 请求类型：Put帖子
 - 请求接口
 
         /pmcAdmin/complaint/{complaintId}           
