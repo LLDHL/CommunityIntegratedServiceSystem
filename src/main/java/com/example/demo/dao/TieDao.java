@@ -27,8 +27,7 @@ public interface TieDao {
     @Update("update tie set " +
             "title = #{title}," +
             "content = #{content}," +
-            "label = #{label}," +
-            "picture = #{picture} " +
+            "label = #{label} " +
             "where " +
             "tieId = #{tieId}")
     void updateTie(Tie ite);

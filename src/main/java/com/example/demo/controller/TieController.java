@@ -22,9 +22,6 @@ public class TieController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private NotificationService notificationService;
-
 
     /* 发帖 */
     @PostMapping("/ties")

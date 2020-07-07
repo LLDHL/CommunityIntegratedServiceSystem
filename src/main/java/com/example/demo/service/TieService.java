@@ -26,14 +26,14 @@ public class TieService {
         tie.setPublishTime(nowTime);
         tieDao.publish(tie);
         ResultDTO resultDTO = new ResultDTO();
-        return resultDTO.okOf("获取成功",tie);
+        return resultDTO.okOf("发帖成功");
     }
 
     /*删帖操作*/
     public ResultDTO delete(Integer tieId){
         tieDao.deleteTie(tieId);
         ResultDTO resultDTO = new ResultDTO();
-        return resultDTO.okOf();
+        return resultDTO.okOf("删帖成功");
     }
 
     /* 修改操作 */
@@ -96,8 +96,10 @@ public class TieService {
         return resultDTO.okOf("取消点赞成功");
     }
 
-    public boolean findTieByTieId(Integer userId, Integer tieId) {
+    public boolean findTieByTieId(Integer tieId,Integer userId) {
         Tie tie = tieDao.selectOneTie(tieId);
+        System.out.println(tie);
+        System.out.println(userId);
         if ((tie.getUserId().equals(userId))){
             return true;
         }else{
