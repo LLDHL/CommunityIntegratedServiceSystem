@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.component.RegisterImageUtils;
 import com.example.demo.dto.ResultDTO;
-import com.example.demo.model.User;import com.example.demo.service.UserService;
+import com.example.demo.model.User;
+import com.example.demo.myenum.roleEnum.RoleCode;
+import com.example.demo.service.UserService;
 import com.example.demo.untils.RandomValidateCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 
+import static com.example.demo.exception.CustomErrorCode.CONT_REGISTER_THIS_ROLE;
 import static com.example.demo.exception.CustomErrorCode.FILE_IS_NULL;
+import static com.example.demo.myenum.roleEnum.RoleCode.REGISTERED_USER;
+import static com.example.demo.myenum.roleEnum.RoleCode.WORKER;
 
 @RestController
 public class GuestController {
@@ -55,6 +60,10 @@ public class GuestController {
         String password = user.getPassword();
         String encodePassword = bCryptPasswordEncoder.encode(password);
         user.setPassword(encodePassword);//加密密码
+        String role=user.getRole();
+        if(!role.equals(REGISTERED_USER.getRole())&&role.equals(WORKER.getRole())){
+            return ResultDTO.errorOf(CONT_REGISTER_THIS_ROLE);
+        }
         userService.userRegister(user);
         return ResultDTO.okOf("注册申请已提交");
     }

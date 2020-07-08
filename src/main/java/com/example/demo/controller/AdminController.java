@@ -14,6 +14,8 @@ import com.example.demo.service.UserService;
 import com.example.demo.untils.OperateLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.spring.web.json.Json;
 
@@ -21,6 +23,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.List;
+import java.util.ListIterator;
+
+import static com.example.demo.myenum.roleEnum.RoleCode.*;
 
 
 @RestController
@@ -54,9 +59,29 @@ public class AdminController {
     @OperateLog(operateModel = "审核模块", operateType = "get", operateDesc = "审核列表")
     @RequestMapping(value = "/admin/getAuthstrs", method = RequestMethod.GET)
     public ResultDTO<List<User>> getAuthstrs() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String role=(String) authentication.getPrincipal();
         List<User> authstrs = userService.getAuthstrs();
-        for (User u : authstrs) {//防止加密后密码泄密
-            u.setPassword("");
+        ListIterator<User> userListIterator = authstrs.listIterator();
+        if(role==OWNERS_COMMITTEE.getRole()){//业委会
+            while (userListIterator.hasNext()) {//防止加密后密码泄密
+                User user=userListIterator.next();
+                if(user.getRole()!= REGISTERED_USER.getRole()){
+                    userListIterator.remove();
+                }else {
+                    user.setPassword("");
+                }
+            }
+        }
+        if(role==PROPERTY_MANAGEMENT_COMPANY.getRole()){//物业
+            while (userListIterator.hasNext()) {//防止加密后密码泄密
+                User user=userListIterator.next();
+                if(user.getRole()!= WORKER.getRole()){
+                    userListIterator.remove();
+                }else {
+                    user.setPassword("");
+                }
+            }
         }
         return ResultDTO.okOf("待审核列表", authstrs);
     }

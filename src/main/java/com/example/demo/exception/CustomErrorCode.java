@@ -8,6 +8,7 @@ public enum CustomErrorCode implements ICustomErrorCode{
     PASSWORD_WRONG(2004,"密码错误"),
     FILE_NOT_FOUND(2005,"未找到文件"),
     FILE_IS_NULL(2006,"文件为空"),
+    CONT_REGISTER_THIS_ROLE(2007,"不能注册这一权限"),
     ;
 
 

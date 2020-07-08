@@ -40,7 +40,6 @@ public class UserService {
         //如果通过
         if (result) {
             authstr.setHeadUrl("");//之前url是头像的url
-            authstr.setRole("User");
             userDao.insertUser(authstr);
             User user = userDao.findUserByUserName(authstr.getName());
             Notification notification = new Notification();
