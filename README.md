@@ -373,11 +373,11 @@
 - 请求方式：Put
 - 点赞接口
 
-        /user/ties/likeTie/{tieId}
+        /user/ties/like/{tieId}
 
 - 取消点赞接口
 
-        /user/ties/notLikeTie/{tieId}
+        /user/ties/notLike/{tieId}
     
 - 路径参数
 
