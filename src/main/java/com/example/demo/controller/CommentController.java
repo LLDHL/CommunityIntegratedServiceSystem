@@ -47,7 +47,7 @@ public class CommentController {
                 userId,
                 receiverId,
                 COMMENT_NOTICE,
-                username +"评论了你：" + tie.getContent());
+                username +"评论了你：" + comment.getCommentContent());
 
         ResultDTO resultDTO = commentService.doPublishComment(comment);
         return resultDTO;
@@ -79,7 +79,7 @@ public class CommentController {
                 userId,
                 comment.getCommentUserId(),
                 COMMENT_NOTICE,
-                username +"评论了你：" + comment.getCommentContent());
+                username +"回复了你的评论：" + comment.getCommentContent());
         ResultDTO resultDTO = secondCommentService.doPublishSecondComment(secondComment);
         return resultDTO;
     }
