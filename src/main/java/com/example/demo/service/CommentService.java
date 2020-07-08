@@ -48,7 +48,7 @@ public class CommentService {
     }
 
     public ResultDTO selectTeiComment(Integer tieId) {
-        List<Comment> comments = commentDao.selectTeiComment(tieId);
+        List<Comment> comments = commentDao.selectTeiComment(tieId,0);
         PageInfo pageInfo = new PageInfo(comments);
         ResultDTO resultDTO = new ResultDTO();
         return resultDTO.okOf("获取成功",pageInfo);

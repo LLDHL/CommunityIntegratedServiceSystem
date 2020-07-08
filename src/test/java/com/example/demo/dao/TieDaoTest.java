@@ -12,9 +12,17 @@ class TieDaoTest {
     @Autowired
     private TieDao tieDao;
 
+    @Autowired
+    private CommentDao commentDao;
+
     @Test
     public void test01(){
         System.out.println(tieDao.selectOneTie(55));
+    }
+
+    @Test
+    private void test02(){
+        System.out.println(commentDao.selectOneComment(60));
     }
 
 }

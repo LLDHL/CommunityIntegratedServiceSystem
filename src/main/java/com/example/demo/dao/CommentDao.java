@@ -14,8 +14,8 @@ public interface CommentDao {
             "(#{tieId},#{commentUsername},#{commentUserId},#{commentContent},#{commentTime},#{commentTypes},#{commentPicture})")
     void publishComment(Comment comment);
 
-    @Select("Select * from comment where tieId = #{tieId}")
-    List<Comment> selectTeiComment(Integer tieId);
+    @Select("Select * from comment where tieId = #{tieId} and commentTypes = #{commentTypes}")
+    List<Comment> selectTeiComment(Integer tieId,Integer commentTypes);
 
     @Select("Select * from comment where commentId = #{commentId}")
     Comment selectOneComment(Integer commentId);
