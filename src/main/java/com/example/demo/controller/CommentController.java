@@ -69,7 +69,7 @@ public class CommentController {
 
     /*发布二级评论*/
     @PostMapping("/second/comment")
-    public ResultDTO doPublishSecondComment(@RequestBody SecondComment secondComment,HttpServletRequest request){
+    public ResultDTO doPublishSecondComment(@RequestBody SecondComment secondComment){
         Authentication authentications = SecurityContextHolder.getContext().getAuthentication();
         String username = authentications.getName();//当前登录的用户名
         Integer userId = userService.getUserId(username);
@@ -79,7 +79,7 @@ public class CommentController {
                 userId,
                 comment.getCommentUserId(),
                 COMMENT_NOTICE,
-                username +"回复了你的评论：" + comment.getCommentContent());
+                username +"回复了你的评论：" + secondComment.getCommentContent());
         ResultDTO resultDTO = secondCommentService.doPublishSecondComment(secondComment);
         return resultDTO;
     }
